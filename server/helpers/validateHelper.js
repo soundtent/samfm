@@ -95,9 +95,11 @@ module.exports.loginValidation = function() {
   return [
     body('username')
       .exists({ checkFalsy: true })
-      .withMessage('Username cannot be empty')
+      .withMessage('Email cannot be empty')
       .custom(value => !/\s/.test(value))
-      .withMessage('Username cannot have spaces'),
+      .withMessage('Email cannot have spaces')
+      .isEmail()
+      .withMessage('Email must be a valid email'),
     body('password')
       .exists({ checkFalsy: true })
       .withMessage('Password cannot be empty')
@@ -120,7 +122,7 @@ module.exports.registerValidation = function() {
   return [
     body('username')
       .exists({ checkFalsy: true })
-      .withMessage('Username cannot be empty'),
+      .withMessage('Email cannot be empty'),
     body('password')
       .exists({ checkFalsy: true })
       .withMessage('Password cannot be empty'),
