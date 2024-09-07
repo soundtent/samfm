@@ -1,0 +1,23 @@
+<iframe style="width: 50px; height: 50px;border: none" src="https://max.meetingplaceforsounds.net/hosting/simpleplayer?streamurl=https://locus.creacast.com:9443/london_camberwell.ogg&playercolor=black&backgroundcolor=white&playerfilled=false"></iframe>
+
+<% if (nowPlayingEntry) { %>
+    <h2>Now Playing: <%= nowPlayingEntry.location %> </h2>
+    <span><%= nowPlayingEntry.description %></span>
+    <% if (nowPlayingEntry.images.length > 0) { %>
+        <img src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
+    <% } else if (nowPlayingEntry.videos.length > 0) { %>
+        <video controls>
+            <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
+        </video> 
+    <% } %>
+    <% nowPlayingEntry.audios.forEach(audio => { %>
+        <audio controls>
+            <source src="<%= pathToUrl(audio) %>">
+        </audio>
+    <% }) %>
+<% } %>
+
+<script>
+const webSocketUrl = '<%= webSocketUrl %>';
+</script>
+<script type="text/javascript" src="/js/now-playing.js"></script>

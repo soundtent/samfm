@@ -1,0 +1,16 @@
+<h2>Schedule Entry</h2>
+<p><%= scheduleEntry.location %></p>
+<p><%= scheduleEntry.participants %></p>
+<p><%= scheduleEntry.description %></p>
+<% if (scheduleEntry.images.length > 0) { %>
+    <img src="<%= pathToUrl(scheduleEntry.images[0]) %>">
+<% } else if (scheduleEntry.videos.length > 0) { %>
+    <video controls>
+        <source src="<%= pathToUrl(scheduleEntry.videos[0]) %>">
+    </video> 
+<% } %>
+<% scheduleEntry.audios.forEach(audio => { %>
+    <audio controls>
+        <source src="<%= pathToUrl(audio) %>">
+    </audio>
+<% }) %>

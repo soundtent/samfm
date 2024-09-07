@@ -1,0 +1,24 @@
+<h2>Dashboard</h2>
+
+<a href="/schedule-entries/new">New entry</a><br><br>
+<% scheduleEntries.forEach(scheduleEntry => { %>
+    <div>
+        <span><%= scheduleEntry.location %></span><br>
+        <span>
+            <% scheduleEntry.users.forEach( user => {%>
+                <%= user.username %>&nbsp;
+            <% }) %>
+        </span><br>
+        <form action="/schedule-entries/now-playing?_method=POST" method="POST">
+            <label for="now-playing">Now Playing</label>
+            <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (scheduleEntry.nowPlaying) { %>checked<%} %> >
+            <input type="hidden" name="id" value="<%= scheduleEntry._id %>"/>
+        </form>
+        <a href="/schedule-entries/<%= scheduleEntry._id %> ">View Entry</a>
+        <a href="/schedule-entries/<%= scheduleEntry._id %>/edit">Edit Entry</a>
+        <form action="/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete Entry</button>
+        </form>
+        <br><br>
+    </div>
+<% }) %></br>

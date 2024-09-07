@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= locals.title || "S AM FM" %></title>
+	<meta name="description" content="<%= locals.description || "The description" %>">
+	<link rel="stylesheet" href="/css/style.css">
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<%- include('../partials/header.ejs') %>
+		<main class="main">
+			<%- body %>
+		</main>
+		<%- include('../partials/footer.ejs') %>
+	</div>
+
+</body>
+</html>

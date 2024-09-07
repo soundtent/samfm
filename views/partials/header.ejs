@@ -1,0 +1,20 @@
+<div class="header">
+    <h1 class="header__title">S AM FM</h1>
+    
+    <div class="header__links">
+        <a href="/">Home</a>
+        <a href="/schedule">Schedule</a>
+        <a href="/get-involved">Get involved</a>
+        <a href="/about">About</a>
+    </div>
+
+    <div>
+        <% if (loggedIn) { %>
+            <a class="header__login-out" href="/dashboard">Dashboard</a>
+            <a class="header__login-out" href="/logout">Logout</a>
+        <% } else { %>
+            <a class="header__login-out" href="/register">Register</a>
+            <a class="header__login-out" href="/login">Login</a>
+        <% } %>
+    </div>
+</div>

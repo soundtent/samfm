@@ -1,0 +1,66 @@
+<script type="text/javascript" src="/js/scheduleEntryForm.js"></script>
+
+<% messages.forEach( message => { %>
+    <span><%= message.msg %></span><br>
+<% }) %>
+<br><br>
+
+<label for="location">Location</label><br>
+<input type="text" name="location" value="<%= scheduleEntry.location || "" %>"><br><br>
+
+<label for="participants">Participants</label><br>
+<input type="text" name="participants" value="<%= scheduleEntry.participants %>"><br><br>
+
+<label for="description">Description</label><br>
+<textarea name="description"><%= scheduleEntry.description %></textarea><br><br>
+
+<% if (admin) {%>
+    <label for="notes">Notes</label><br>
+    <textarea name="notes"><%= scheduleEntry.notes %></textarea><br><br>
+<% } %>
+
+<label for="startTime">Start time/date</label><br>
+<input type="datetime-local" name="startTime" value="<%= scheduleEntry.startTime.toISOString().slice(0,16) %>"><br><br>
+
+<label for="endTime">End time/date</label><br>
+<input type="datetime-local" name="endTime" value="<%= scheduleEntry.endTime.toISOString().slice(0,16) %>"><br><br>
+
+<div class="imageOrVideoUpload-container">
+    <label for="upload">Image (or video file (JPG/PNG/GIF or MP4/MPEG/WEBM. Max size: 5MB): </label><br>
+    <% if (scheduleEntry.images.length > 0 || scheduleEntry.videos.length > 0) { %>
+        <% if (scheduleEntry.images.length > 0) { %>
+            <div class="imageOrVideoUpload">
+                <input type="hidden" name="existingImages[]" value="<%= scheduleEntry.images[0] %>" />
+                <img class="imageOrVideoUpload__display" src="<%= pathToUrl(scheduleEntry.images[0]) %>">
+                <a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">[del]</a>
+            </div>
+        <% } else if (scheduleEntry.videos.length > 0) { %>
+            <div class="imageOrVideoUpload">
+                <input type="hidden" name="existingVideos[]" value="<%= scheduleEntry.videos[0] %>" />
+                <video class="imageOrVideoUpload__display" controls>
+                    <source src="<%= pathToUrl(scheduleEntry.videos[0]) %>">
+                </video>
+                <a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">[del]</a>
+            </div>
+        <% } %>
+        <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input hidden"/><br><br>
+    <% } else { %>
+        <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input"/><br><br>
+    <% } %>
+</div>
+
+<div class="audioUpload-container">
+    <label for="upload">Audio file (MP3, max 5MB): </label><br>
+    <% scheduleEntry.audios.forEach(audio => { %>
+        <div class="audioUpload">
+            <input type="hidden" name="existingAudios[]" value="<%= audio %>" />
+            <audio class="audioUpload__display" controls>
+                <source src="<%= pathToUrl(audio) %>">
+            </audio>
+            <a class="audioUpload__del" onclick="deleteAudioUpload(this)">[del]</a>
+        </div>
+    <% }) %>
+    <a class="audioUpload__add" onclick="addAudioUpload(this)">[add Audio]</a>
+</div>
+
+<br><br>

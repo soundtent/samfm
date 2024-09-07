@@ -1,0 +1,39 @@
+services:
+
+  mongo:
+    image: mongo:6
+    restart: always
+    container_name: samfm-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+    #      MONGO_INITDB_DATABASE: init
+    volumes:
+      - ./samfm_data/samfm-mongodb/:/data/db/ #retain database on disk
+      - /etc/timezone:/etc/timezone:ro #use timezone of server
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    container_name: samfm-mongo-online-admin-interface
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGODB_ROOT_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_ROOT_USERNAME}:${MONGODB_ROOT_PASSWORD}@mongo:27017/
+      
+  samfm-app:
+    build: .
+    container_name: samfm-app
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - mongo
+    volumes:
+      - ./samfm_data/samfm-app:/app/public/user-uploads # retain public data on disk

@@ -1,0 +1,11 @@
+<h2>Schedule</h2>
+
+<% scheduleData.forEach( scheduleDatum => { %>
+    <h3><%= scheduleDatum.title %></h3>
+
+    <% scheduleDatum.columns.forEach( column => { %>
+        <span><%= column.content %></span>
+        <span><%= column.scheduleEntry.location %></span>
+    <% }); %>
+
+<% }); %>
