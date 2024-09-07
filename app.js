@@ -57,8 +57,8 @@ app.use(session({
 //http
 var httpServer
 if (process.env.NODE_ENV == "production") {
-  var privateKey = fs.readFileSync( '/etc/letsencrypt/live/soundcamp.radio/privkey.pem' );
-  var certificate = fs.readFileSync( '/etc/letsencrypt/live/soundcamp.radio/fullchain.pem' );
+  var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
+  var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
   httpServer = https.createServer({ key: privateKey, cert: certificate }, app)
 }
 else {
