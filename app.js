@@ -19,6 +19,7 @@ const passport = require('passport');
 const WebSocket = require('ws');
 const http = require('http');
 const https = require('https');
+const fs = require('fs');
 const { isActiveRoute } = require('./server/helpers/isActiveRouteHelper');
 
 const connectDB = require('./server/config/dbConfig');
