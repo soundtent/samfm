@@ -18,6 +18,7 @@ const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const WebSocket = require('ws');
 const http = require('http');
+const https = require('https');
 const { isActiveRoute } = require('./server/helpers/isActiveRouteHelper');
 
 const connectDB = require('./server/config/dbConfig');
@@ -51,8 +52,19 @@ app.use(session({
   store: new MongoStore({ mongoUrl: mongoUrl })
 }));
 
+
+//http
+var httpServer
+if (process.env.NODE_ENV == "production") {
+  var privateKey = fs.readFileSync( '/etc/letsencrypt/live/soundcamp.radio/privkey.pem' );
+  var certificate = fs.readFileSync( '/etc/letsencrypt/live/soundcamp.radio/fullchain.pem' );
+  httpServer = https.createServer({ key: privateKey, cert: certificate }, app)
+}
+else {
+  httpServer = http.createServer(app);
+}
+
 //Web sockets
-const httpServer = http.createServer(app);
 const webSocketServer = new WebSocket.WebSocketServer({server: httpServer});
 app.set('webSocketServer', webSocketServer);
 

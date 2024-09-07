@@ -7,7 +7,6 @@
     "start": "app.js",
     "dev": "nodemon app.js & npm run scss",
     "scss": "sass --watch public/css/style.scss:public/css/style.css"
-    
   },
   "author": "Max Baraitser Smith",
   "license": "ISC",
@@ -23,6 +22,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.2.0",
     "http": "^0.0.1-security",
+    "https": "^1.0.0",
     "method-override": "^3.0.0",
     "mime-types": "^2.1.35",
     "mongoose": "^8.5.4",
