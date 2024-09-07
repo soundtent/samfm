@@ -2,19 +2,19 @@
     <a class="header__title-left-wrapper" href="/"><img class="header__title-left" src="/img/SAM.svg"></a>
     
     <div class="header__links">
-        <a class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/', currentRoute) %><% } %>" href="/">Home</a>
-        <a class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/schedule', currentRoute) %><% } %>" href="/schedule">Schedule</a>
-        <a class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/get-involved', currentRoute) %><% } %>" href="/get-involved">Get involved</a>
+        <a class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/', currentRoute) %><% } %>" href="/">Home</a><a 
+        class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/schedule', currentRoute) %><% } %>" href="/schedule">Schedule</a><a 
+        class="<% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/get-involved', currentRoute) %><% } %>" href="/get-involved">Get involved</a>
     </div>
 
     <div class="header__auth">
         <% if (loggedIn) { %>
-            <a class="header__login-out <% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/dashboard', currentRoute) %><% } %>" href="/dashboard">Dashboard</a>
-            <a class="header__login-out" href="/logout">Logout</a>
+            <a class="header__login-out <% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/dashboard', currentRoute) %><% } %>" href="/dashboard">Dashboard</a><a 
+            class="header__login-out" href="/logout">Logout</a>
         <% } else { %>
             <a class="header__login-out <% if (typeof currentRoute !== 'undefined') { %><%= isActiveRoute('/login', currentRoute) %><% } %>" href="/login">Login</a>
         <% } %>
-    </div>
-
-    <a class="header__title-left-wrapper" href="/"><img class="header__title-right" src="/img/FM.svg"></a>
+    </div><a 
+    class="header__title-left-wrapper" href="/"><img class="header__title-right" src="/img/FM.svg"></a>
+    
 </div>

@@ -8,7 +8,7 @@ html {
 body {
   font-family: 'Times New Roman', serif;
   color: #2e8c5d;
-  padding: 1rem 10rem;
+  padding: 1rem 1rem;
   box-sizing: border-box;
   margin: 0; }
 
@@ -43,7 +43,7 @@ img {
 --------------------------------------------- */
 h1 {
   font-size: 1rem;
-  line-height: 0.8rem;
+  line-height: 1.1rem;
   text-transform: uppercase;
   margin-top: 2rem;
   margin-bottom: 0rem;
@@ -51,22 +51,23 @@ h1 {
 
 h2 {
   font-size: 1rem;
-  line-height: 0.8rem;
+  line-height: 1.1rem;
   margin-top: 0rem;
   font-weight: normal; }
 
 h3 {
   font-size: 1rem;
-  line-height: 0.8rem;
+  line-height: 1.1rem;
   margin: 0rem;
   font-weight: normal; }
 
 p, span {
   font-size: 1rem;
-  line-height: 0.8rem;
+  line-height: 1.1rem;
   margin: 0rem; }
 
-p.small_text, span.small_text {
+p.small-text,
+span.small-text {
   font-size: 0.75rem;
   line-height: 0.5rem;
   margin: 0rem; }
@@ -126,19 +127,19 @@ a:hover {
 
 .now-playing__image,
 .now-playing__video {
-  width: 30%; }
+  width: 25%; }
 
 .now-playing__player {
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 0.88rem;
+  height: 0.88rem;
   border: none; }
 
 .now-playing__irc-container {
   position: absolute;
-  top: 50vh;
+  top: 40vh;
   right: 1rem;
   width: 40vw;
-  height: calc( 50vh - 1rem ); }
+  height: calc( 60vh - 1rem ); }
 
 .now-playing__irc {
   box-sizing: border-box;
@@ -156,7 +157,7 @@ a:hover {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  margin-top: 5px; }
+  margin-top: 10px; }
 
 .schedule-table th {
   border-bottom: 1px solid #2e8c5d;
@@ -164,7 +165,7 @@ a:hover {
 
 .schedule-table td {
   border-bottom: 1px solid #2e8c5d;
-  padding: 5px;
+  padding: 10px 0;
   overflow-wrap: break-word; }
 
 .schedule-table__description {
@@ -180,7 +181,7 @@ a:hover {
 .schedule__cest-label {
   position: absolute;
   left: 8rem;
-  bottom: 0.15rem; }
+  bottom: 0; }
 
 /* Entry page
 --------------------------------------------- */

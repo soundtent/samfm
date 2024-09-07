@@ -5,16 +5,16 @@
     </div>
     <table class="schedule-table">
         <thead>
-            <th style="width:4rem; vertical-align: bottom;"></th>
-            <th style="width:4rem; vertical-align: bottom;"></th>
-            <th style="width:4rem; vertical-align: bottom;"></th>
+            <th style="width:2rem; vertical-align: bottom;"></th>
+            <th style="width:2rem; vertical-align: bottom;"></th>
+            <th style="width:2rem; vertical-align: bottom;"></th>
             <th style="width:4rem; vertical-align: bottom;"></th>
         </thead>
 
         <tbody>
             <% scheduleDatum.columns.forEach( column => { %>
                 <tr class="underline <% if (column.scheduleEntry.nowPlaying) { %>bold<% } %>" onclick="window.location='/schedule-entries/<%= column.scheduleEntry._id %>'">
-                    <td><%= column.content %></td>
+                    <td><%- column.content %></td>
                     <td><%= column.scheduleEntry.location %></td>
                     <td><%= column.scheduleEntry.participants %></td>
                     <td class="schedule-table__description"><%= column.scheduleEntry.description %></td>

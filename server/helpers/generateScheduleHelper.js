@@ -30,24 +30,24 @@ exports.generateSchedule = async() => {
     
             //startTime and endTime occur during this day
             if (entryStartTime.isBetween(dayStart, dayEnd) ) {
-                var entryString = entryStartTime.format("hh:mm") + " - " + entryEndTime.format("hh:mm");
+                var entryString = entryStartTime.format("hh:mm") + " &ndash; " + entryEndTime.format("hh:mm");
                 columns.push({content: entryString, scheduleEntry: entry} );
             }
     
             //startTime occurs during this day
             if (entryStartTime.isBetween(dayStart, dayEnd) ) {
-                var entryString = entryStartTime.format("hh:mm") + " - 00:00";
+                var entryString = entryStartTime.format("hh:mm") + " &ndash; 00:00";
                 columns.push({content: entryString, scheduleEntry: entry} );
             }
             
             //endTime occurs during this day
             else if (entryEndTime.isBetween(dayStart, dayEnd) ) {
-                var entryString = "00:00 - " + entryEndTime.format("hh:mm");
+                var entryString = "00:00 &ndash; " + entryEndTime.format("hh:mm");
                 columns.push({content: entryString, scheduleEntry: entry} );
             }
             // start and endtime on either side of this day
             else if (entryStartTime.isBefore(dayStart) && entryEndTime.isAfter(dayEnd) ) {
-                var entryString = "00:00 - 00:00";
+                var entryString = "00:00 &ndash; 00:00";
                 columns.push({content: entryString, scheduleEntry: entry} );
             }
         });
