@@ -31,7 +31,7 @@ services:
     build: .
     container_name: samfm-app
     ports:
-      - "${PORT}:${PORT}"
+      - "443:${PORT}"
     restart: always
     depends_on:
       - mongo
