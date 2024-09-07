@@ -122,7 +122,9 @@ module.exports.registerValidation = function() {
   return [
     body('username')
       .exists({ checkFalsy: true })
-      .withMessage('Email cannot be empty'),
+      .withMessage('Email cannot be empty')
+      .isEmail()
+      .withMessage('Email must be a valid email'),
     body('password')
       .exists({ checkFalsy: true })
       .withMessage('Password cannot be empty'),
