@@ -18,6 +18,7 @@ const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const WebSocket = require('ws');
 const http = require('http');
+const { isActiveRoute } = require('./server/helpers/isActiveRouteHelper');
 
 const connectDB = require('./server/config/dbConfig');
 const initialisePassportLocalStrategy = require('./server/config/authConfig');
@@ -65,6 +66,8 @@ app.use(passport.session());
 app.use(expressLayout);
 app.set('layout', 'layouts/main');
 app.set('view engine', 'ejs');
+
+app.locals.isActiveRoute = isActiveRoute;
 
 app.use(require('./server/routes/routes'));
 app.use(require('./server/routes/authRoutes'));

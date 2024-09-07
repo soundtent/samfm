@@ -7,11 +7,13 @@ const authController = require('../controllers/authController.js');
 const checkAuthenticated = authController.checkAuthenticated;
 const uploadMiddleware = require("../helpers/uploadHelper.js");
 const validate = require("../helpers/validateHelper.js");
+const checkConsistency = require("../helpers/checkConsistencyHelper.js");
 
 router.get('/', appController.nowPlaying);
 router.get('/schedule', appController.schedule);
 router.get('/get-involved', appController.getInvolved);
-router.get('/about', appController.about);
+
+router.get('/helpers/check-consistency', checkConsistency);
 
 router.get('/dashboard', checkAuthenticated, scheduleEntriesController.index);
 router.get('/schedule-entries/new', checkAuthenticated, scheduleEntriesController.new);

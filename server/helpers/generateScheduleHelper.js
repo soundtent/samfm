@@ -14,7 +14,7 @@ exports.generateSchedule = async() => {
 
     const startDate = dayjs.tz("2024-09-10 00:00:00");
 
-    const numberOfDays = 14;
+    const numberOfDays = 5;
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     for (var i=0;i<numberOfDays;i++) { 

@@ -14,7 +14,7 @@
             <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (scheduleEntry.nowPlaying) { %>checked<%} %> >
             <input type="hidden" name="id" value="<%= scheduleEntry._id %>"/>
         </form>
-        <a href="/schedule-entries/<%= scheduleEntry._id %> ">View Entry</a>
+        <a href="/schedule-entries/<%= scheduleEntry._id %>">View Entry</a>
         <a href="/schedule-entries/<%= scheduleEntry._id %>/edit">Edit Entry</a>
         <form action="/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST">
             <button type="submit">Delete Entry</button>

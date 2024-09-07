@@ -1,0 +1,223 @@
+/* Variables
+--------------------------------------------- */
+
+$primary-color: rgb(46, 140, 93);
+$page-margin-x: 10rem;
+$page-margin-y: 1rem;
+$gap: 1rem;
+$line-height: 0.8rem;
+
+
+/* Global
+--------------------------------------------- */
+html {
+    font-size: 24px;
+}
+body {
+    font-family: 'Times New Roman', serif;
+    color: $primary-color;
+    padding: $page-margin-y $page-margin-x;
+    box-sizing: border-box;
+    margin: 0;
+}
+img {
+    width: 100px;
+}
+.hidden {
+    display: none;
+}
+.inline {
+    display: inline;
+}
+.break {
+    height: $gap*1.5;
+}
+.break2 {
+    height: $gap*3;
+}
+
+.active { //active used for underlining currnt page
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: none; 
+    border-bottom: 1px solid;
+    color:$primary-color;
+    cursor: pointer;
+}
+
+/* Typography
+--------------------------------------------- */
+
+h1 {
+	font-size: 1rem;
+    line-height: $line-height;
+	text-transform: uppercase;
+	margin-top: 2rem;
+	margin-bottom: 0rem;
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 1rem;
+    line-height: $line-height;
+	margin-top: 0rem;
+	font-weight: normal;
+}
+
+h3 {
+	font-size: 1rem;
+    line-height: $line-height;
+	margin: 0rem;
+	font-weight: normal;
+}
+
+p, span {
+	font-size: 1rem;
+    line-height: $line-height;
+	margin: 0rem;
+}
+
+p.small_text, span.small_text {
+    font-size: 0.75rem;
+    line-height: 0.5rem;
+    margin: 0rem;
+}
+
+a {
+    text-decoration: none; 
+    border-bottom: 1px solid;
+    color:$primary-color;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none; 
+    border-bottom: 0px; 
+}
+
+
+/* Page
+--------------------------------------------- */
+.main {
+    width: 100%;
+}
+
+
+/* Header
+--------------------------------------------- */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: $gap*2;
+}
+.header__links {
+    width: 100%;
+    display: inline-block;
+    justify-content: left;
+    column-gap: $gap;
+    margin-left: $gap;
+}
+.header__links > * {
+    white-space: nowrap;
+    margin-right: $gap;
+}
+.header__auth {
+    display: flex;
+    column-gap: $gap;
+    margin-right: $gap;
+}
+.header__title-left, .header__title-right {
+    width: auto;
+    height: 5rem;
+}
+.header__title-left-wrapper,
+.header__title-right-wrapper, {
+    border: none;
+}
+
+
+/* Now-playing
+--------------------------------------------- */
+.now-playing__description {
+    width: 40%;
+    display: block;
+}
+.now-playing__image,
+.now-playing__video {
+    width: 30%;
+}
+.now-playing__player {
+    width: $line-height;
+    height: $line-height;
+    border: none;
+}
+.now-playing__irc-container {
+    position: absolute;
+    top: 50vh;
+    right: $gap;
+    width: 40vw;
+    height: calc( 50vh - #{$gap} );
+}
+.now-playing__irc {
+    box-sizing: border-box;
+    border: 2px solid $primary-color;
+    height: 100%;
+}
+.now-playing__flex-full-width {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Schedule
+--------------------------------------------- */
+
+$table-padding: 5px;
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: $table-padding;
+}
+
+.schedule-table th {
+    border-bottom: 1px solid $primary-color;
+    height:0;
+}
+
+.schedule-table td {
+    border-bottom: 1px solid $primary-color;
+    padding: $table-padding;
+    overflow-wrap: break-word;
+}
+.schedule-table__description {
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
+.schedule__cest-label-container {
+    position:relative;
+    width: 100%;
+    height:0;
+}
+.schedule__cest-label {
+    position:absolute;
+    left: 8rem;
+    bottom:0.15rem;
+}
+
+/* Entry page
+--------------------------------------------- */
+.entry-page__image,
+.entry-page__video {
+    width: 30%;
+}

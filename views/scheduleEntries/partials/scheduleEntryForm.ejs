@@ -19,10 +19,10 @@
     <textarea name="notes"><%= scheduleEntry.notes %></textarea><br><br>
 <% } %>
 
-<label for="startTime">Start time/date</label><br>
+<label for="startTime">Start time/date (CEST)</label><br>
 <input type="datetime-local" name="startTime" value="<%= scheduleEntry.startTime.toISOString().slice(0,16) %>"><br><br>
 
-<label for="endTime">End time/date</label><br>
+<label for="endTime">End time/date (CEST)</label><br>
 <input type="datetime-local" name="endTime" value="<%= scheduleEntry.endTime.toISOString().slice(0,16) %>"><br><br>
 
 <div class="imageOrVideoUpload-container">

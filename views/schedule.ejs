@@ -1,11 +1,31 @@
-<h2>Schedule</h2>
-
 <% scheduleData.forEach( scheduleDatum => { %>
-    <h3><%= scheduleDatum.title %></h3>
+    <h1 class="inline"><%= scheduleDatum.title %></h1>
+    <div class="schedule__cest-label-container">
+        <span class="schedule__cest-label">all times CEST</span>
+    </div>
+    <table class="schedule-table">
+        <thead>
+            <th style="width:4rem; vertical-align: bottom;"></th>
+            <th style="width:4rem; vertical-align: bottom;"></th>
+            <th style="width:4rem; vertical-align: bottom;"></th>
+            <th style="width:4rem; vertical-align: bottom;"></th>
+        </thead>
 
-    <% scheduleDatum.columns.forEach( column => { %>
-        <span><%= column.content %></span>
-        <span><%= column.scheduleEntry.location %></span>
-    <% }); %>
-
+        <tbody>
+            <% scheduleDatum.columns.forEach( column => { %>
+                <tr class="underline <% if (column.scheduleEntry.nowPlaying) { %>bold<% } %>" onclick="window.location='/schedule-entries/<%= column.scheduleEntry._id %>'">
+                    <td><%= column.content %></td>
+                    <td><%= column.scheduleEntry.location %></td>
+                    <td><%= column.scheduleEntry.participants %></td>
+                    <td class="schedule-table__description"><%= column.scheduleEntry.description %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <div class="break2"></div>
 <% }); %>
+
+<script>
+const webSocketUrl = '<%= webSocketUrl %>';
+</script>
+<script type="text/javascript" src="/js/schedule.js"></script>

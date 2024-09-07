@@ -7,6 +7,7 @@ exports.index = async (req,res) => {
     try {
         const loggedIn = req.isAuthenticated();
         const admin = req.user.admin;
+        const currentRoute = "/dashboard";
 
         if (admin) {
             var scheduleEntries = await User.getScheduleEntriesWithUsers();
@@ -14,7 +15,7 @@ exports.index = async (req,res) => {
         else {
             var scheduleEntries = await User.getScheduleEntriesWithUsers([req.user._id]);
         }
-        res.render("scheduleEntries/dashboard", {scheduleEntries, loggedIn});
+        res.render("scheduleEntries/dashboard", {scheduleEntries, loggedIn, currentRoute});
     } catch (error) {
         console.log(error);
     }
@@ -78,6 +79,7 @@ exports.create = async (req,res) => {
     try {
         var data = req.body;
         const scheduleEntry = await new ScheduleEntry(data);
+
         await scheduleEntry.save();
 
         for (var i=0;i<req.files.length;i++) {

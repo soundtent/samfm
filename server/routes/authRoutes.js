@@ -14,8 +14,9 @@ router.get('/login', async (req,res) => {
     const messages = req.session.messages || [];
     req.session.messages = [];
     const username = req.session.savedUsername || "";
+    const currentRoute = "/login";
 
-    res.render('auth/signIn.ejs', {loggedIn, messages, username});
+    res.render('auth/signIn.ejs', {loggedIn, messages, username, currentRoute});
 });
 router.get('/register', async (req,res) => {
     const loggedIn = req.isAuthenticated();

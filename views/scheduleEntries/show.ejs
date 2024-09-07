@@ -1,16 +1,19 @@
-<h2>Schedule Entry</h2>
-<p><%= scheduleEntry.location %></p>
+<h1>Entry Page</h1>
+<div class="break"></div>
+<span class="underline"><%= scheduleEntry.location %></span>
 <p><%= scheduleEntry.participants %></p>
-<p><%= scheduleEntry.description %></p>
+<div class="break"></div>
+<span><%= scheduleEntry.description %></span>
+<div class="break"></div>
 <% if (scheduleEntry.images.length > 0) { %>
-    <img src="<%= pathToUrl(scheduleEntry.images[0]) %>">
+    <img class="entry-page__image" src="<%= pathToUrl(scheduleEntry.images[0]) %>">
 <% } else if (scheduleEntry.videos.length > 0) { %>
-    <video controls>
+    <video class="entry-page__video" controls>
         <source src="<%= pathToUrl(scheduleEntry.videos[0]) %>">
     </video> 
 <% } %>
+<div class="break"></div>
 <% scheduleEntry.audios.forEach(audio => { %>
-    <audio controls>
-        <source src="<%= pathToUrl(audio) %>">
-    </audio>
+    <iframe style="width: 500px; height: 25px;border: none" src="https://max.meetingplaceforsounds.net/hosting/recordingplayer?audiourl=<%= pathToUrl(audio) %>"></iframe> 
+    <div class="break"></div>
 <% }) %>

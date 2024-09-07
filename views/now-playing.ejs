@@ -1,23 +1,38 @@
-<iframe style="width: 50px; height: 50px;border: none" src="https://max.meetingplaceforsounds.net/hosting/simpleplayer?streamurl=https://locus.creacast.com:9443/london_camberwell.ogg&playercolor=black&backgroundcolor=white&playerfilled=false"></iframe>
+<div class="now-playing">
+    <div class="now-playing__flex-full-width">
+        <div>
+            <iframe class="now-playing__player" src="https://max.meetingplaceforsounds.net/hosting/simpleplayer?streamurl=https://locus.creacast.com:9443/london_camberwell.ogg&playercolor=2e8c5d&backgroundcolor=white&playerfilled=true"></iframe>
+            <% if (nowPlayingEntry) { %>
+                <h1 class="inline">Now Playing:</h1>
+            <% } %>
+        </div>
+        <div>
+            <span class="clock">00:00:00</span>
+            <span>CEST</span>
+        </div>
+    </div>
 
-<% if (nowPlayingEntry) { %>
-    <h2>Now Playing: <%= nowPlayingEntry.location %> </h2>
-    <span><%= nowPlayingEntry.description %></span>
-    <% if (nowPlayingEntry.images.length > 0) { %>
-        <img src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
-    <% } else if (nowPlayingEntry.videos.length > 0) { %>
-        <video controls>
-            <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
-        </video> 
+    <% if (nowPlayingEntry) { %>
+        <a href="/schedule-entries/<%= nowPlayingEntry._id %>"><%= nowPlayingEntry.location %></a><br>
+        <div class="break"></div>
+        <span class="now-playing__description"><%- nowPlayingEntry.description %></span>
+        <div class="break"></div>
+        <% if (nowPlayingEntry.images.length > 0) { %>
+            <img class="now-playing__image" src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
+        <% } else if (nowPlayingEntry.videos.length > 0) { %>
+            <video class="now-playing__video" controls>
+                <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
+            </video> 
+        <% } %>
     <% } %>
-    <% nowPlayingEntry.audios.forEach(audio => { %>
-        <audio controls>
-            <source src="<%= pathToUrl(audio) %>">
-        </audio>
-    <% }) %>
-<% } %>
+    <div class="now-playing__irc-container">
+            <iframe class="now-playing__irc" marginwidth="0" marginheight="0" scrolling="default" src="https://irc.soundtent.org/?v=1&amp;theme=soundcamp_irc_v2_white#acousticommons" sandbox="allow-scripts allow-same-origin" width="100%" frameborder="0"></iframe>
+    </div>
+</div>
+
 
 <script>
 const webSocketUrl = '<%= webSocketUrl %>';
 </script>
 <script type="text/javascript" src="/js/now-playing.js"></script>
+<script type="text/javascript" src="/js/clock.js"></script>
