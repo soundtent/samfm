@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const dayjs = require('dayjs');
 const { unlink } = require('fs');
 
 ScheduleEntrySchema = new mongoose.Schema({
@@ -45,7 +44,7 @@ ScheduleEntrySchema = new mongoose.Schema({
     },
     endTime: {
         type: Date,
-        default: dayjs().toDate(),
+        default: Date.now,
         required: true
     },
     createdAt: {

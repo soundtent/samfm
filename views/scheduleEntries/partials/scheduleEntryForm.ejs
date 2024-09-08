@@ -18,7 +18,84 @@
     <label for="notes">Notes</label><br>
     <textarea name="notes"><%= scheduleEntry.notes %></textarea><br><br>
 <% } %>
+<br><br><br>
 
+
+
+
+
+<% 
+    const localStringOptions = {
+        timeZone: timezone,
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+    const startLocalString = new Date(scheduleEntry.startTime).toLocaleString([], localStringOptions);
+    const endLocalString = new Date(scheduleEntry.startTime).toLocaleString([], localStringOptions)
+    const startDate = startLocalString.substring(0,8);
+    const startHours = parseInt(startLocalString.substring(10,12));
+    const startMins = parseInt(startLocalString.substring(13,15));
+    const endDate = endLocalString.substring(0,8);
+    const endHours = parseInt(endLocalString.substring(10,12));
+    const endMins = parseInt(endLocalString.substring(13,15));
+%>
+
+<select name="startDate_________">
+    <% for (var i=0;i<projectDays.length;i++) { %>
+        <option value="<%= projectDays[i].dayName %>" 
+            <% if (startDate == projectDays[i].date) { %>
+                selected
+            <% } %>>
+            <%= projectDays[i].label %>
+        </option>
+    <% } %>
+</select>
+<select name="startTime_________">
+    <% var chosenSelect = false; %>
+    <% for (var hour=0;hour<24;hour++) { %>
+        <% for (var min=0;min<60;min+=15) { %>
+            <option value="<%= hour %>:<%= min %>" 
+                <% if (hour*60 + min > startHours*60+startMins && !chosenSelect) { %>
+                    <% chosenSelect = true; %>
+                    selected
+                <% } %>>
+                <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+            </option>
+        <% } %>
+    <% } %>
+</select>
+ to 
+  <select name="endTime_________">
+    <% var chosenSelect = false; %>
+    <% for (var hour=0;hour<24;hour++) { %>
+        <% for (var min=0;min<60;min+=15) { %>
+            <option value="<%= hour %>:<%= min %>" 
+                <% if (hour*60 + min > endHours*60+endMins && !chosenSelect) { %>
+                    <% chosenSelect = true; %>
+                    selected
+                <% } %>>
+                <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+            </option>
+        <% } %>
+    <% } %>
+</select>
+<select name="endDate_________">
+    <% for (var i=0;i<projectDays.length;i++) { %>
+        <option value="<%= projectDays[i].dayName %>" 
+            <% if (endDate == projectDays[i].date) { %>
+                selected
+            <% } %>>
+            <%= projectDays[i].label %>
+        </option>
+    <% } %>
+</select>
+
+
+  <br><br><br>
 <label for="startTime">Start time/date (CEST)</label><br>
 <input type="datetime-local" name="startTime" value="<%= scheduleEntry.startTime.toISOString().slice(0,16) %>"><br><br>
 

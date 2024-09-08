@@ -28,6 +28,11 @@ const initialisePassportLocalStrategy = require('./server/config/authConfig');
 const app = express();
 const port = process.env.PORT;
 
+
+app.set("startDay", "2024-09-08"); //inclusive
+app.set("endDay", "2024-09-13"); //inclusive
+app.set("timeZone", "Europe/Berlin");
+
 //allows PUT and POST requests to be received by middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());

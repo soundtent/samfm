@@ -2,6 +2,7 @@ const ScheduleEntry = require("../models/ScheduleEntry");
 const User = require("../models/User");
 const { schedule } = require("./appController");
 const { unlink } = require('fs');
+const getProjectDays = require('../helpers/getProjectDaysHelper');
 
 exports.index = async (req,res) => {
     try {
@@ -38,13 +39,15 @@ exports.new = async (req,res) => {
         const admin = req.user.admin;
         const unsavedFormData = req.session.body || [];
         const messages = req.session.messages || [];
+        const timezone = req.app.get("timezone");
+        const projectDays = getProjectDays(req.app);
 
         req.session.messages = [];
         req.session.body = [];
         
         const scheduleEntry = await new ScheduleEntry(unsavedFormData); // only for view, never saved
 
-        res.render("scheduleEntries/new", {loggedIn, scheduleEntry, admin, messages});
+        res.render("scheduleEntries/new", {loggedIn, scheduleEntry, admin, messages,timezone,projectDays});
     } catch (error) {
         console.log(error);
     }
@@ -58,6 +61,8 @@ exports.edit = async (req,res) => {
         const admin = req.user.admin;
         const messages = req.session.messages || [];
         const unsavedFormData = req.session.body || [];
+        const timezone = req.app.get("timezone");
+        const projectDays = getProjectDays(req.app);
         var scheduleEntry = await ScheduleEntry.findOne({_id: id});
 
         if (messages.length > 0 ) {
@@ -68,7 +73,7 @@ exports.edit = async (req,res) => {
         req.session.messages = [];
         req.session.body = [];
         
-        res.render("scheduleEntries/edit", {scheduleEntry, loggedIn, admin, messages });
+        res.render("scheduleEntries/edit", {scheduleEntry, loggedIn, admin, messages, timezone,projectDays});
     } catch (error) {
         console.log(error);
     }
