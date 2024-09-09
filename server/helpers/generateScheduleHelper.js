@@ -4,64 +4,80 @@ dayjs.extend(require('dayjs/plugin/utc'));
 dayjs.extend(require('dayjs/plugin/timezone'));
 dayjs.extend(require('dayjs/plugin/isBetween'));
 
-exports.generateSchedule = async() => {
-    
+function limitCharacters(text,charlimit) {
+    if (text.length > charlimit) {
+        return text.substring(0,charlimit)+"...";
+    }
+    else {return text;}
+}
+
+exports.generateSchedule = async(app) => {
+    const timezone = app.get("timezone");
+    const startDay = app.get("startDay");
+    const endDay = app.get("endDay");
+
     const scheduleEntryModels = await ScheduleEntry.find({});
     var scheduleEntries = scheduleEntryModels.map(function(model) { return model.toObject(); });
     var scheduleData = [];
 
-    dayjs.tz.setDefault("Europe/Berlin");
-    // dayjs.tz.setDefault("America/New_York");
+    dayjs.tz.setDefault(timezone);
 
-    const startDate = dayjs.tz("2024-09-08 00:00:00");
+    var today = dayjs.tz();
+    
 
-    const numberOfDays = 5;
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    for (var i=0;i<numberOfDays;i++) { 
-        var dayStart = startDate.add(i, 'day');
-        var dayEnd = startDate.add(i+1, 'day');
+    var runningDay = dayjs.tz(startDay+" 00:00:00");
+    
+    while (true) {
+        var dayStart = runningDay;
+        var dayEnd = runningDay.add(1, 'day');
         var weekday = weekdays[dayStart.day()];
-        // var timeNow = dayjs.tz();
     
         var columns = [];
-    
+        
         scheduleEntries.forEach( (entry) => {
-            var entryStartTime = dayjs(entry.startTime);
-            var entryEndTime = dayjs(entry.endTime);
-            var timeNow = dayjs.tz();    
+            var entryStartTime = dayjs.tz(entry.startTime);
+            var entryEndTime = dayjs.tz(entry.endTime);
+
+            var entryString;
 
             //startTime and endTime occur during this day
-            if (entryStartTime.isBetween(dayStart, dayEnd) ) {
-                var entryString = entryStartTime.format("hh:mm") + " &ndash; " + entryEndTime.format("hh:mm");
-                columns.push({content: entryString, scheduleEntry: entry} );
+            if (entryStartTime.isBetween(dayStart, dayEnd) && entryEndTime.isBetween(dayStart, dayEnd) ) {
+                entryString = entryStartTime.format("HH:mm") + " &ndash; " + entryEndTime.format("HH:mm");
             }
     
-            var entryString;
             //startTime occurs during this day
-            if (entryStartTime.isBetween(dayStart, dayEnd) ) {
-                entryString = entryStartTime.format("hh:mm") + " &ndash; 00:00";
+            else if (entryStartTime.isBetween(dayStart, dayEnd) && entryEndTime.isAfter(dayEnd)) {
+                entryString = entryStartTime.format("HH:mm") + " &ndash; 00:00";
             }
             
             //endTime occurs during this day
-            else if (entryEndTime.isBetween(dayStart, dayEnd) ) {
-                entryString = "00:00 &ndash; " + entryEndTime.format("hh:mm");
+            else if (entryStartTime.isBefore(dayStart) && entryEndTime.isBetween(dayStart, dayEnd) ) {
+                entryString = "00:00 &ndash; " + entryEndTime.format("HH:mm");
             }
             // start and endtime on either side of this day
             else if (entryStartTime.isBefore(dayStart) && entryEndTime.isAfter(dayEnd) ) {
                 entryString = "00:00 &ndash; 00:00";
             }
             if (entryString) {
-                if (entry.nowPlaying) {
+                var live = false;
+                if (entry.nowPlaying && dayStart.format("YYYY-MM-DD") == today.format("YYYY-MM-DD") ) {
                     var split = entryString.split("&ndash;")
                     entryString = "LIVE &ndash; "+split[1];
+                    live = true;
                 }
-                columns.push({content: entryString, scheduleEntry: entry} );
+                entry.location = limitCharacters(entry.location,50);
+                entry.participants = limitCharacters(entry.participants,50);
+                entry.description = limitCharacters(entry.description,100);
+                columns.push({content: entryString, scheduleEntry: entry, live: live} );
             }
         });
         columns.sort();
         var scheduleDatum = {title: weekday, columns: columns};
         scheduleData.push(scheduleDatum);
+
+        runningDay = runningDay.add(1, "d");
+        if (runningDay.format("YYYY-MM-DD") == endDay) {break;}
     }
     return scheduleData;
 }

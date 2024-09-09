@@ -1,143 +1,131 @@
 <script type="text/javascript" src="/js/scheduleEntryForm.js"></script>
 
-<% messages.forEach( message => { %>
-    <span><%= message.msg %></span><br>
-<% }) %>
-<br><br>
-
-<label for="location">Location</label><br>
-<input type="text" name="location" value="<%= scheduleEntry.location || "" %>"><br><br>
-
-<label for="participants">Participants</label><br>
-<input type="text" name="participants" value="<%= scheduleEntry.participants %>"><br><br>
-
-<label for="description">Description</label><br>
-<textarea name="description"><%= scheduleEntry.description %></textarea><br><br>
-
-<% if (admin) {%>
-    <label for="notes">Notes</label><br>
-    <textarea name="notes"><%= scheduleEntry.notes %></textarea><br><br>
-<% } %>
-<br><br><br>
-
-
-
-
-
-<% 
-    const localStringOptions = {
-        timeZone: timezone,
-        year: "2-digit",
-        month: "2-digit",
-        day: "2-digit",
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    };
-    const startLocalString = new Date(scheduleEntry.startTime).toLocaleString([], localStringOptions);
-    const endLocalString = new Date(scheduleEntry.startTime).toLocaleString([], localStringOptions)
-    const startDate = startLocalString.substring(0,8);
-    const startHours = parseInt(startLocalString.substring(10,12));
-    const startMins = parseInt(startLocalString.substring(13,15));
-    const endDate = endLocalString.substring(0,8);
-    const endHours = parseInt(endLocalString.substring(10,12));
-    const endMins = parseInt(endLocalString.substring(13,15));
-%>
-
-<select name="startDate_________">
-    <% for (var i=0;i<projectDays.length;i++) { %>
-        <option value="<%= projectDays[i].dayName %>" 
-            <% if (startDate == projectDays[i].date) { %>
-                selected
-            <% } %>>
-            <%= projectDays[i].label %>
-        </option>
-    <% } %>
-</select>
-<select name="startTime_________">
-    <% var chosenSelect = false; %>
-    <% for (var hour=0;hour<24;hour++) { %>
-        <% for (var min=0;min<60;min+=15) { %>
-            <option value="<%= hour %>:<%= min %>" 
-                <% if (hour*60 + min > startHours*60+startMins && !chosenSelect) { %>
-                    <% chosenSelect = true; %>
-                    selected
-                <% } %>>
-                <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
-            </option>
-        <% } %>
-    <% } %>
-</select>
- to 
-  <select name="endTime_________">
-    <% var chosenSelect = false; %>
-    <% for (var hour=0;hour<24;hour++) { %>
-        <% for (var min=0;min<60;min+=15) { %>
-            <option value="<%= hour %>:<%= min %>" 
-                <% if (hour*60 + min > endHours*60+endMins && !chosenSelect) { %>
-                    <% chosenSelect = true; %>
-                    selected
-                <% } %>>
-                <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
-            </option>
-        <% } %>
-    <% } %>
-</select>
-<select name="endDate_________">
-    <% for (var i=0;i<projectDays.length;i++) { %>
-        <option value="<%= projectDays[i].dayName %>" 
-            <% if (endDate == projectDays[i].date) { %>
-                selected
-            <% } %>>
-            <%= projectDays[i].label %>
-        </option>
-    <% } %>
-</select>
-
-
-  <br><br><br>
-<label for="startTime">Start time/date (CEST)</label><br>
-<input type="datetime-local" name="startTime" value="<%= scheduleEntry.startTime.toISOString().slice(0,16) %>"><br><br>
-
-<label for="endTime">End time/date (CEST)</label><br>
-<input type="datetime-local" name="endTime" value="<%= scheduleEntry.endTime.toISOString().slice(0,16) %>"><br><br>
-
-<div class="imageOrVideoUpload-container">
-    <label for="upload">Image (or video file (JPG/PNG/GIF or MP4/MPEG/WEBM. Max size: 5MB): </label><br>
-    <% if (scheduleEntry.images.length > 0 || scheduleEntry.videos.length > 0) { %>
-        <% if (scheduleEntry.images.length > 0) { %>
-            <div class="imageOrVideoUpload">
-                <input type="hidden" name="existingImages[]" value="<%= scheduleEntry.images[0] %>" />
-                <img class="imageOrVideoUpload__display" src="<%= pathToUrl(scheduleEntry.images[0]) %>">
-                <a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">[del]</a>
-            </div>
-        <% } else if (scheduleEntry.videos.length > 0) { %>
-            <div class="imageOrVideoUpload">
-                <input type="hidden" name="existingVideos[]" value="<%= scheduleEntry.videos[0] %>" />
-                <video class="imageOrVideoUpload__display" controls>
-                    <source src="<%= pathToUrl(scheduleEntry.videos[0]) %>">
-                </video>
-                <a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">[del]</a>
-            </div>
-        <% } %>
-        <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input hidden"/><br><br>
-    <% } else { %>
-        <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input"/><br><br>
-    <% } %>
-</div>
-
-<div class="audioUpload-container">
-    <label for="upload">Audio file (MP3, max 5MB): </label><br>
-    <% scheduleEntry.audios.forEach(audio => { %>
-        <div class="audioUpload">
-            <input type="hidden" name="existingAudios[]" value="<%= audio %>" />
-            <audio class="audioUpload__display" controls>
-                <source src="<%= pathToUrl(audio) %>">
-            </audio>
-            <a class="audioUpload__del" onclick="deleteAudioUpload(this)">[del]</a>
-        </div>
+<% if (messages.length > 0) {%>
+    <% messages.forEach( message => { %>
+        <span><%= message.msg %></span><br>
     <% }) %>
-    <a class="audioUpload__add" onclick="addAudioUpload(this)">[add Audio]</a>
-</div>
+    <br>
+<% } %>
 
+<div class="entry-form">
+    <label for="location">Location</label><br>
+    <input type="text" name="location" value="<%= scheduleEntry.location || "" %>"><br><br>
+
+    <label for="participants">Participants</label><br>
+    <input type="text" name="participants" value="<%= scheduleEntry.participants %>"><br><br>
+
+    <label for="description">Description</label><br>
+    <textarea name="description"><%= scheduleEntry.description %></textarea><br><br>
+
+    <label for="streamUrl">Stream url</label><br>
+    <input type="text" name="streamUrl" value="<%= scheduleEntry.streamUrl %>"><br><br>
+
+    <% if (admin) {%>
+        <label for="notes">Notes</label><br>
+        <textarea name="notes"><%= scheduleEntry.notes %></textarea><br><br>
+    <% } %>
+    <label>Start/end time</label><br>
+    <% 
+        const startLocalString = new Date(scheduleEntry.startTime).toLocaleString('sv-SE', {timeZone: timezone});
+        const endLocalString = new Date(scheduleEntry.endTime).toLocaleString('sv-SE', {timeZone: timezone})
+        const startDate = startLocalString.substring(0,10);
+        const startYear = startLocalString.substring(6,10);
+        const startHours = parseInt(startLocalString.substring(11,13));
+        const startMins = parseInt(startLocalString.substring(14,16));
+        const endDate = endLocalString.substring(0,10);
+        const endYear = endLocalString.substring(6,10);
+        const endHours = parseInt(endLocalString.substring(11,13));
+        const endMins = parseInt(endLocalString.substring(14,16));
+    %>
+
+    <select name="startDate">
+        <% for (var i=0;i<projectDays.length;i++) { %>
+            <option value="<%= projectDays[i].date %>" 
+                <% if (startDate == projectDays[i].date) { %>
+                    selected
+                <% } %>>
+                <%= projectDays[i].label %>
+            </option>
+        <% } %>
+    </select>
+    <select name="startTime">
+        <% var chosenSelect = false; %>
+        <% for (var hour=0;hour<24;hour++) { %>
+            <% for (var min=0;min<60;min+=15) { %>
+                <option value="<%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>" 
+                    <% if (hour*60 + min >= startHours*60+startMins && !chosenSelect) { %>
+                        <% chosenSelect = true; %>
+                        selected
+                    <% } %>>
+                    <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+                </option>
+            <% } %>
+        <% } %>
+    </select>
+    to 
+    <select name="endTime">
+        <% var chosenSelect = false; %>
+        <% for (var hour=0;hour<24;hour++) { %>
+            <% for (var min=0;min<60;min+=15) { %>
+                <option value="<%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>" 
+                    <% if (hour*60 + min >= endHours*60+endMins && !chosenSelect) { %>
+                        <% chosenSelect = true; %>
+                        selected
+                    <% } %>>
+                    <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+                </option>
+            <% } %>
+        <% } %>
+    </select>
+    <select name="endDate">
+        <% for (var i=0;i<projectDays.length;i++) { %>
+            <option value="<%= projectDays[i].date %>" 
+                <% if (endDate == projectDays[i].date) { %>
+                    selected
+                <% } %>>
+                <%= projectDays[i].label %>
+            </option>
+        <% } %>
+    </select>
+    <br><br>
+    <div class="imageOrVideoUpload-container">
+        <label for="upload">Image or video file (jpg/png/gif or mp4/mpeg/webm. Max size: 5MB): </label><br>
+        <% if (scheduleEntry.images.length > 0 || scheduleEntry.videos.length > 0) { %>
+            <% if (scheduleEntry.images.length > 0) { %>
+                <div class="imageOrVideoUpload">
+                    <input type="hidden" name="existingImages[]" value="<%= scheduleEntry.images[0] %>" />
+                    <img class="imageOrVideoUpload__display" src="<%= pathToUrl(scheduleEntry.images[0]) %>">
+                    &nbsp;<a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">delete</a>
+                </div>
+            <% } else if (scheduleEntry.videos.length > 0) { %>
+                <div class="imageOrVideoUpload">
+                    <input type="hidden" name="existingVideos[]" value="<%= scheduleEntry.videos[0] %>" />
+                    <video class="imageOrVideoUpload__display" controls>
+                        <source src="<%= pathToUrl(scheduleEntry.videos[0]) %>">
+                    </video>
+                    &nbsp;<a class="imageOrVideoUpload__del" onclick="deleteImageOrVideoUpload(this)">delete</a>
+                </div>
+            <% } %>
+            <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input hidden"/><br><br>
+        <% } else { %>
+            <input type="file" name="upload" accept="video/*,image/*" class="imageOrVideoUpload__input"/><br><br>
+        <% } %>
+    </div>
+
+    <div class="audioUpload-container">
+        <label for="upload">Audio file (mp3, max 5MB): </label><br>
+        <% scheduleEntry.audios.forEach(audio => { %>
+            <div class="audioUpload">
+                <input type="hidden" name="existingAudios[]" value="<%= audio %>" />
+                <audio class="audioUpload__display" controls>
+                    <source src="<%= pathToUrl(audio) %>">
+                </audio>
+                &nbsp;<a class="audioUpload__del" onclick="deleteAudioUpload(this)">delete</a>
+                <br>
+            </div>
+        <% }) %>
+
+        <button type="button" class="audioUpload__add" onclick="addAudioUpload(this)">add audio</button>
+    </div>
+</div>
 <br><br>

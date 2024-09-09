@@ -25,8 +25,10 @@ const UserSchema = new Schema({
 });
 
 
+UserSchema.statics.getScheduleEntriesWithUsers = async (sortByField, reverseSort=false, user_ids=[]) => { // user_ids = array of ObjectIds. Passing an empty array searchers all users
+  var sortNum = 1;
+  if (reverseSort) {sortNum = -1;}
 
-UserSchema.statics.getScheduleEntriesWithUsers = async (user_ids=[]) => { // user_ids = array of ObjectIds. Passing an empty array searchers all users
   var aggregation = [
     { // create users field
       $lookup: {
@@ -45,7 +47,9 @@ UserSchema.statics.getScheduleEntriesWithUsers = async (user_ids=[]) => { // use
         nowPlaying: 1,
         startTime: 1,
         endTime: 1,
+        streamUrl: 1,
         updatedAt: 1,
+        createdAt: 1,
         users: {
           $filter: {
             input: "$users",
@@ -63,7 +67,10 @@ UserSchema.statics.getScheduleEntriesWithUsers = async (user_ids=[]) => { // use
           $exists: true
         }
       }
-    }
+    },
+    { 
+      $sort: { [sortByField]: sortNum } 
+    },
   ];
 
   if (user_ids.length == 0) {

@@ -11,14 +11,12 @@ const getProjectDays = function (app) {
 
     while (true) {
         projectDays.push({
-            date: runningDay.format("DD/MM/YYYY"), // in format of js.toLocaleString: dd/mm/yyyy
+            date: runningDay.format("YYYY-MM-DD"), // format must match with the js.getLocalString in scheduleEntryForm.ejs
             label: runningDay.format("ddd, D MMM")
         })
         runningDay = runningDay.add(1, "d");
         if (runningDay.format("YYYY-MM-DD") == endDay) {break;}
     }
-
-    console.log(projectDays);
 
     return projectDays;
 }

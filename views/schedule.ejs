@@ -1,11 +1,12 @@
 <% scheduleData.forEach( scheduleDatum => { %>
-    <h1 class="inline"><%= scheduleDatum.title %></h1>
-    <div class="schedule__cest-label-container">
+    <div class="schedule__day-container">
+        <h1><%= scheduleDatum.title %></h1>
         <span class="schedule__cest-label">all times CEST</span>
     </div>
+
     <table class="schedule-table">
         <thead>
-            <th style="width:2rem; vertical-align: bottom;"></th>
+            <th style="width:1rem; vertical-align: bottom;"></th>
             <th style="width:2rem; vertical-align: bottom;"></th>
             <th style="width:2rem; vertical-align: bottom;"></th>
             <th style="width:4rem; vertical-align: bottom;"></th>
@@ -13,7 +14,7 @@
 
         <tbody>
             <% scheduleDatum.columns.forEach( column => { %>
-                <tr class="underline <% if (column.scheduleEntry.nowPlaying) { %>bold<% } %>" onclick="window.location='/schedule-entries/<%= column.scheduleEntry._id %>'">
+                <tr class="underline <% if (column.live) { %>bold<% } %>" onclick="window.location='/schedule-entries/<%= column.scheduleEntry._id %>'">
                     <td><%- column.content %></td>
                     <td><%= column.scheduleEntry.location %></td>
                     <td><%= column.scheduleEntry.participants %></td>

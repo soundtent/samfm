@@ -1,24 +1,60 @@
-<h2>Dashboard</h2>
+<h1>Dashboard</h1><br>
 
-<a href="/schedule-entries/new">New entry</a><br><br>
-<% scheduleEntries.forEach(scheduleEntry => { %>
-    <div>
-        <span><%= scheduleEntry.location %></span><br>
-        <span>
-            <% scheduleEntry.users.forEach( user => {%>
-                <%= user.username %>&nbsp;
-            <% }) %>
-        </span><br>
-        <form action="/schedule-entries/now-playing?_method=POST" method="POST">
-            <label for="now-playing">Now Playing</label>
-            <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (scheduleEntry.nowPlaying) { %>checked<%} %> >
-            <input type="hidden" name="id" value="<%= scheduleEntry._id %>"/>
-        </form>
-        <a href="/schedule-entries/<%= scheduleEntry._id %>">View Entry</a>
-        <a href="/schedule-entries/<%= scheduleEntry._id %>/edit">Edit Entry</a>
-        <form action="/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST">
-            <button type="submit">Delete Entry</button>
-        </form>
-        <br><br>
-    </div>
-<% }) %></br>
+<a href="/schedule-entries/new">create a new schedule entry</a><br><br>
+
+<form class="sort-by" method="get" action="/dashboard">
+    <label for="sort-by">Sort by:</label><br>
+    <select name="sort-by" onchange="this.form.submit()">
+        <option value="date-created" <% if (sortBy == "date-created") {%>selected="selected"<% } %> >Date created</option>
+        <option value="start-time" <% if (sortBy == "start-time") {%>selected="selected"<% } %>>Start time</option>
+    </select>    
+</form>
+
+<br><br>
+
+
+
+<table class="dashboard-table">
+    <thead>
+        <% if (admin) { %>
+            <th style="width:1rem; vertical-align: bottom;">start – end (CEST)</th>
+            <th style="width:1rem; vertical-align: bottom;">location</th>
+            <th style="width:1rem; vertical-align: bottom;">participants</th>
+            <th style="width:1rem; vertical-align: bottom;">stream url</th>
+            <th style="width:1rem; vertical-align: bottom;">notes</th>
+            <th style="width:1rem; vertical-align: bottom;">actions</th>
+        <% } else { %>
+            <th style="width:1rem; vertical-align: bottom;">start – end (CEST)</th>
+            <th style="width:1rem; vertical-align: bottom;">location</th>
+            <th style="width:1rem; vertical-align: bottom;">participants</th>
+            <th style="width:1rem; vertical-align: bottom;">stream url</th>
+            <th style="width:1rem; vertical-align: bottom;">actions</th>
+        <% } %>
+    </thead>
+
+    <tbody>
+        <% dashboardEntries.forEach(column => { %>
+            <tr>
+                <td class="dashboard__timestring"><%- column.timeString %></td>
+                <td><%= column.location %></td>
+                <td><%= column.participants %></td>
+                <td><a href="<%= column.streamUrl %>"><%= column.streamUrl %></a></td>
+                <% if (admin) { %>
+                    <td><%= column.notes %></td>
+                <% } %>
+                <td>
+                    <form action="/schedule-entries/now-playing?_method=POST" method="POST">
+                        <span>Now Playing</span>
+                        <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (column.nowPlaying) { %>checked<%} %> >
+                        <input type="hidden" name="id" value="<%= column._id %>"/>
+                    </form>
+                    <a href="/schedule-entries/<%= column._id %>">View Entry</a><br>
+                    <a href="/schedule-entries/<%= column._id %>/edit">Edit Entry</a><br>
+                    <form action="/schedule-entries/<%= column._id %>?_method=DELETE" method="POST">
+                        <a href="#" onclick="this.parentElement.submit()">Delete</a>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

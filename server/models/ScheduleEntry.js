@@ -25,6 +25,10 @@ ScheduleEntrySchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    streamUrl: {
+        type: String,
+        default: ""
+    },
     images: [{
         type: String,
         default: ""

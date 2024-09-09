@@ -9,6 +9,6 @@ function deleteAudioUpload(delButton) {
 }
 
 function addAudioUpload(addButton) {
-    var newAudio = $.parseHTML("<div><input type='file' name='upload' accept='audio/*' /><a onclick='this.parentElement.remove()'>[del]</a></div>");
+    var newAudio = $.parseHTML("<div><input type='file' name='upload' accept='audio/*' />&nbsp;<a onclick='this.parentElement.remove()'>delete</a></div>");
     $(addButton).before(newAudio);
 }

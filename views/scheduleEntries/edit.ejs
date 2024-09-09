@@ -1,10 +1,10 @@
-<h2>Edit entry</h2>
-
+<h1>Edit entry</h1>
+<br>
 <form id="scheduleEntryForm" action="/schedule-entries/<%= scheduleEntry._id%>?_method=PUT" enctype="multipart/form-data" method="POST">
-    <%- include('partials/scheduleEntryForm.ejs') %> 
+    <%- include('partials/scheduleEntryForm.ejs') %>
     <input type="submit" value="Update">
 </form>
-
+<br>
 <form action="/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST">
-    <input type="submit" value="Delete" class="btn-delete btn">
+    <input type="submit" value="Delete" class="button-delete">
 </form>

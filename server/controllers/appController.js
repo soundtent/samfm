@@ -2,7 +2,7 @@ const ScheduleEntry = require("../models/ScheduleEntry");
 const {generateSchedule} = require('../helpers/generateScheduleHelper.js');
 
 exports.schedule = async(req, res) => {
-    const scheduleData = await generateSchedule();
+    const scheduleData = await generateSchedule(req.app);
     const loggedIn = req.isAuthenticated();
     const webSocketUrl = "ws://"+req.headers.host;
     var admin = false;

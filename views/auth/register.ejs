@@ -1,18 +1,20 @@
 <h1>Register</h1>
+<br>
+<% if (messages.length > 0) {%>
+    <% messages.forEach( message => { %>
+        <span><%= message.msg %></span><br>
+    <% }) %>
+    <br>
+<% } %>
 
-<% messages.forEach( message => { %>
-    <span><%= message.msg %></span><br>
-<% }) %>
-<br><br>
-
-<form action="/register" method="post">
+<form action="/register?_method=POST" method="POST">
     <section>
-        <label for="username">Email</label>
+        <label for="username">Email</label><br>
         <input id="username" name="username" type="text" autocomplete="username" required autofocus>
-    </section>
+    </section><br>
     <section>
-        <label for="current-password">Password</label>
+        <label for="current-password">Password</label><br>
         <input id="current-password" name="password" type="password" autocomplete="current-password" required>
-    </section>
+    </section><br>
     <button type="submit">Register</button>
 </form>

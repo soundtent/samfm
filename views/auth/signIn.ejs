@@ -1,23 +1,23 @@
 <h1>Sign in</h1>
-
-<% messages.forEach( message => { %>
-    <span><%= message.msg %></span><br>
-<% }) %>
-<br><br>
+<br>
+<% if (messages.length > 0) {%>
+    <% messages.forEach( message => { %>
+        <span><%= message.msg %></span><br>
+    <% }) %>
+    <br>
+<% } %>
 
 <form action="/login?_method=POST" method="POST">
     <section>
-        <label for="username">Email</label>
+        <label for="username">Email</label><br>
         <input id="username" name="username" type="text" autocomplete="username" value="<%= username %>" required autofocus>
-    </section>
+    </section><br>
     <section>
-        <label for="current-password">Password</label>
+        <label for="current-password">Password</label><br>
         <input id="current-password" name="password" type="password" autocomplete="current-password" required>
-    </section>
+    </section><br>
     <button type="submit">Sign in</button>
 </form>
-
-<br><br>
-
+<br>
 <a href="/register">Register</a><br>
 <a href="/forgot-password">Forgot password</a>

@@ -49,6 +49,10 @@ module.exports.formValidation = function() {
     check('endTime')
       .isISO8601().toDate()
       .withMessage('End time must be DATETIME'),
+    body('streamUrl')
+      .optional({ checkFalsy: true })
+      .isURL()
+      .withMessage('Stream url must be a valid url'),
     check('upload')
       .custom(uploadValidation)
       .withMessage('Cannot upload file(s) due to unrecognised format.'),

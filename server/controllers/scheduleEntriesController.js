@@ -3,20 +3,30 @@ const User = require("../models/User");
 const { schedule } = require("./appController");
 const { unlink } = require('fs');
 const getProjectDays = require('../helpers/getProjectDaysHelper');
+const {generateDashboardEntries} = require('../helpers/generateDashboardHelper');
 
 exports.index = async (req,res) => {
     try {
         const loggedIn = req.isAuthenticated();
         const admin = req.user.admin;
         const currentRoute = "/dashboard";
+        const sortBy = req.query['sort-by'] || "date-created";
+
+        var sortByField = "createdAt";
+        if (sortBy == "start-time") {
+            sortByField = "startTime";
+        }
 
         if (admin) {
-            var scheduleEntries = await User.getScheduleEntriesWithUsers();
+            var scheduleEntries = await User.getScheduleEntriesWithUsers(sortByField, reverseSort=false);
         }
         else {
-            var scheduleEntries = await User.getScheduleEntriesWithUsers([req.user._id]);
+            var scheduleEntries = await User.getScheduleEntriesWithUsers(sortByField, reverseSort=false, user_ids=[req.user._id]);
         }
-        res.render("scheduleEntries/dashboard", {scheduleEntries, loggedIn, currentRoute});
+        const dashboardEntries = await generateDashboardEntries(scheduleEntries,req.app);
+        
+        console.log(dashboardEntries);
+        res.render("scheduleEntries/dashboard", {dashboardEntries, loggedIn, currentRoute,sortBy, admin});
     } catch (error) {
         console.log(error);
     }

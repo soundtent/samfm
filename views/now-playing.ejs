@@ -11,22 +11,24 @@
             <span class="small-text">CEST</span>
         </div>
     </div>
-
-    <% if (nowPlayingEntry) { %>
-        <a href="/schedule-entries/<%= nowPlayingEntry._id %>"><%= nowPlayingEntry.location %></a><br>
-        <div class="break"></div>
-        <span class="now-playing__description"><%- nowPlayingEntry.description %></span>
-        <div class="break"></div>
-        <% if (nowPlayingEntry.images.length > 0) { %>
-            <img class="now-playing__image" src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
-        <% } else if (nowPlayingEntry.videos.length > 0) { %>
-            <video class="now-playing__video" controls>
-                <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
-            </video> 
+    <div class="now-playing__content">
+        <% if (nowPlayingEntry) { %>
+            <a class="now-playing__location" href="/schedule-entries/<%= nowPlayingEntry._id %>"><%= nowPlayingEntry.location %></a><br>
+            <span class="now-playing__participants"><%= nowPlayingEntry.participants %></span>
+            <div class="now-playing__irc-container">
+                <iframe class="now-playing__irc" marginwidth="0" marginheight="0" scrolling="default" src="https://irc.soundtent.org/?v=2&theme=soundcamp_irc_v2_samfm#acousticommons" sandbox="allow-scripts allow-same-origin" width="100%" frameborder="0"></iframe>
+                <p>To change your username, type in chat: /nick YourName</p>
+            </div>
+            <br><br>
+            <span class="now-playing__description"><%- nowPlayingEntry.description %></span><br><br>
+            <% if (nowPlayingEntry.images.length > 0) { %>
+                <img class="now-playing__image" src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
+            <% } else if (nowPlayingEntry.videos.length > 0) { %>
+                <video class="now-playing__video" controls>
+                    <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
+                </video> 
+            <% } %>
         <% } %>
-    <% } %>
-    <div class="now-playing__irc-container">
-            <iframe class="now-playing__irc" marginwidth="0" marginheight="0" scrolling="default" src="https://irc.soundtent.org/?v=1&amp;theme=soundcamp_irc_v2_white#acousticommons" sandbox="allow-scripts allow-same-origin" width="100%" frameborder="0"></iframe>
     </div>
 </div>
 
