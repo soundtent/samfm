@@ -8,7 +8,5 @@ socket.addEventListener('open', function (event) {
 
 //Listen for messages
 socket.addEventListener('message', function (event) {
-    if (event.data == "refresh") {
-        location.reload();
-    }
+    location.reload();
 })

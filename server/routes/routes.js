@@ -14,7 +14,8 @@ router.get('/', appController.nowPlaying);
 router.get('/schedule', appController.schedule);
 router.get('/get-involved', appController.getInvolved);
 
-router.get('/helpers/check-consistency', checkConsistency);
+router.get('/api/check-consistency', checkConsistency);
+router.get('/api/schedule-entries/now-playing', scheduleEntriesController.getNowPlaying);
 
 router.get('/dashboard', checkAuthenticated, scheduleEntriesController.index);
 router.get('/schedule-entries/new', checkAuthenticated, scheduleEntriesController.new);

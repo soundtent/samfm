@@ -2,9 +2,7 @@
     <div class="now-playing__flex-full-width">
         <div>
             <iframe class="now-playing__player" src="https://max.meetingplaceforsounds.net/hosting/simpleplayer?streamurl=https://partneraudio.wavefarm.org/soundcamp.mp3&playercolor=2e8c5d&backgroundcolor=white&playerfilled=true"></iframe>
-            <% if (nowPlayingEntry) { %>
-                <h1 class="inline">Now Playing:</h1>
-            <% } %>
+            <h1 class="inline">Now Playing:</h1>
         </div>
         <div>
             <span class="clock">00:00:00</span>
@@ -12,23 +10,16 @@
         </div>
     </div>
     <div class="now-playing__content">
-        <% if (nowPlayingEntry) { %>
-            <a class="now-playing__location" href="/schedule-entries/<%= nowPlayingEntry._id %>"><%= nowPlayingEntry.location %></a><br>
-            <span class="now-playing__participants"><%= nowPlayingEntry.participants %></span>
-            <div class="now-playing__irc-container">
-                <iframe class="now-playing__irc" marginwidth="0" marginheight="0" scrolling="default" src="https://irc.soundtent.org/?v=2&theme=soundcamp_irc_v2_samfm#acousticommons" sandbox="allow-scripts allow-same-origin" width="100%" frameborder="0"></iframe>
-                <p>To change your username, type in chat: /nick YourName</p>
-            </div>
-            <br><br>
-            <span class="now-playing__description"><%- nowPlayingEntry.description %></span><br><br>
-            <% if (nowPlayingEntry.images.length > 0) { %>
-                <img class="now-playing__image" src="<%= pathToUrl(nowPlayingEntry.images[0]) %>">
-            <% } else if (nowPlayingEntry.videos.length > 0) { %>
-                <video class="now-playing__video" controls>
-                    <source src="<%= pathToUrl(nowPlayingEntry.videos[0]) %>">
-                </video> 
-            <% } %>
-        <% } %>
+        <a class="now-playing__location"></a><br>
+        <span class="now-playing__participants"></span>
+        <div class="now-playing__irc-container">
+            <iframe class="now-playing__irc" marginwidth="0" marginheight="0" scrolling="default" src="https://irc.soundtent.org/?v=2&theme=soundcamp_irc_v2_samfm#acousticommons" sandbox="allow-scripts allow-same-origin" width="100%" frameborder="0"></iframe>
+            <p>To change your username, type in chat: /nick YourName</p>
+        </div>
+        <br><br>
+        <span class="now-playing__description"></span><br><br>
+        <div class="now-playing__images"></div>
+        <div class="now-playing__videos"></div>
     </div>
 </div>
 

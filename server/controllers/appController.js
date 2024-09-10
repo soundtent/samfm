@@ -21,14 +21,7 @@ exports.nowPlaying = async(req, res) => {
     var webSocketUrl = "ws://"+req.headers.host;
     if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
 
-    const nowPlayingEntry = await ScheduleEntry.getNowPlaying();
-
-    if (nowPlayingEntry && nowPlayingEntry.description.length > 200) {
-        const readmore = `<a href='schedule-entries/${nowPlayingEntry._id}'>read more</a>`;
-        nowPlayingEntry.description = nowPlayingEntry.description.substring(0,188)+"... "+readmore;
-    }
-
-    res.render('now-playing', {loggedIn, webSocketUrl,nowPlayingEntry, currentRoute});
+    res.render('now-playing', {loggedIn, webSocketUrl, currentRoute});
 };
 
 

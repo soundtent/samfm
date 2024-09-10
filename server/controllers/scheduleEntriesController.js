@@ -1,9 +1,10 @@
 const ScheduleEntry = require("../models/ScheduleEntry");
 const User = require("../models/User");
-const { schedule } = require("./appController");
+const { schedule, nowPlaying } = require("./appController");
 const { unlink } = require('fs');
 const getProjectDays = require('../helpers/getProjectDaysHelper');
 const {generateDashboardEntries} = require('../helpers/generateDashboardHelper');
+const { pathToFileURL } = require("url");
 
 exports.index = async (req,res) => {
     try {
@@ -128,12 +129,10 @@ exports.update = async (req,res) => {
             await ScheduleEntry.addFile(scheduleEntry._id, req.files[i].validatedFileType, req.files[i].path);
         }
 
-        if (scheduleEntry.nowPlaying) {
-            const webSocketServer = req.app.get('webSocketServer');
-            webSocketServer.clients.forEach(function each(client) {
-                client.send('refresh');
-            });
-        }
+        const webSocketServer = req.app.get('webSocketServer');
+        webSocketServer.clients.forEach(function each(client) {
+            client.send(JSON.stringify({id: req.params.id, nowPlaying: scheduleEntry.nowPlaying}));
+        });
 
         res.redirect(`/dashboard`);
     } catch (error) {
@@ -163,8 +162,10 @@ exports.delete = async (req,res) => {
 
 exports.setNowPlaying = async (req,res) => {
     try {
+        var nowPlaying = false;
         if (req.body['now-playing'] == 'on') {
-            await ScheduleEntry.setNowPlaying(req.body['id']);
+            nowPlaying = true;
+            await ScheduleEntry.setNowPlaying(req.body.id);
         }
         else {
             await ScheduleEntry.setNowPlaying();
@@ -172,9 +173,37 @@ exports.setNowPlaying = async (req,res) => {
 
         const webSocketServer = req.app.get('webSocketServer');
         webSocketServer.clients.forEach(function each(client) {
-            client.send('refresh');
+            client.send(JSON.stringify({id: req.body.id, nowPlaying: nowPlaying}));
         });
         res.redirect('/dashboard');
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.getNowPlaying = async (req,res) => {
+    try {
+        const nowPlayingEntry = await ScheduleEntry.getNowPlaying();
+
+        if (nowPlayingEntry && nowPlayingEntry.description.length > 200) {
+            const readmore = `<a href='schedule-entries/${nowPlayingEntry._id}'>read more</a>`;
+            nowPlayingEntry.description = nowPlayingEntry.description.substring(0,188)+"... "+readmore;
+        }
+        
+        var generatedImageUrls = [];
+        var generatedVideoUrls = [];
+        if (nowPlayingEntry.images.length > 0) {
+            for (var i=0;i<nowPlayingEntry.images.length;i++) {
+                generatedImageUrls.push(req.app.locals.pathToUrl(nowPlayingEntry.images[i]));
+            }
+        }
+        else if (nowPlayingEntry.videos.length > 0) {
+            for (var i=0;i<nowPlayingEntry.videos.length;i++) {
+                generatedVideoUrls.push(req.app.locals.pathToUrl(nowPlayingEntry.videos[i]));
+            }
+        }
+        
+        res.status(200).send( {scheduleEntry: nowPlayingEntry, generatedUrls: {images: generatedImageUrls, videos: generatedVideoUrls} } );
     } catch (error) {
         console.log(error);
     }
