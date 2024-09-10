@@ -4,7 +4,8 @@ const {generateSchedule} = require('../helpers/generateScheduleHelper.js');
 exports.schedule = async(req, res) => {
     const scheduleData = await generateSchedule(req.app);
     const loggedIn = req.isAuthenticated();
-    const webSocketUrl = "ws://"+req.headers.host;
+    var webSocketUrl = "ws://"+req.headers.host;
+    if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
     var admin = false;
     if (loggedIn && req.user.admin) {
         admin = true;
@@ -16,8 +17,9 @@ exports.schedule = async(req, res) => {
 
 exports.nowPlaying = async(req, res) => {
     const loggedIn = req.isAuthenticated();
-    const webSocketUrl = "ws://"+req.headers.host;
     const currentRoute = "/";
+    var webSocketUrl = "ws://"+req.headers.host;
+    if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
 
     const nowPlayingEntry = await ScheduleEntry.getNowPlaying();
 
