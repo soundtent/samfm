@@ -16,8 +16,6 @@ exports.index = async (req,res) => {
         if (sortBy == "start-time") {
             sortByField = "startTime";
         }
-        console.log(sortBy);
-        console.log(sortByField);
 
         if (admin) {
             var scheduleEntries = await User.getScheduleEntriesWithUsers(sortByField, reverseSort=false);
