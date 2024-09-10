@@ -19,7 +19,7 @@ exports.generateDashboardEntries = async(scheduleEntries, app) => {
         delete scheduleEntries.endTime;
         scheduleEntries[i].location = limitCharacters(scheduleEntries[i].location,50);
         scheduleEntries[i].participants = limitCharacters(scheduleEntries[i].participants,50);
-        scheduleEntries[i].description = limitCharacters(scheduleEntries[i].participants,50);
+        scheduleEntries[i].description = limitCharacters(scheduleEntries[i].description,50);
         scheduleEntries[i].notes = limitCharacters(scheduleEntries[i].notes,50);
     }
     
