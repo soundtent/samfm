@@ -12,7 +12,6 @@ const sendEmail = async (email, subject, text) => {
                 pass: process.env.EMAIL_PASSWORD,
             },
         };
-        console.log(options);
         const transporter = nodemailer.createTransport(options);
 
         await transporter.sendMail({
@@ -22,9 +21,9 @@ const sendEmail = async (email, subject, text) => {
             text: text,
         });
 
-        console.log("email sent sucessfully");
+        console.log("Email sent sucessfully");
     } catch (error) {
-        console.log(error, "email not sent");
+        console.log(error, "Email not sent");
     }
 };
 

@@ -16,6 +16,8 @@ exports.index = async (req,res) => {
         if (sortBy == "start-time") {
             sortByField = "startTime";
         }
+        console.log(sortBy);
+        console.log(sortByField);
 
         if (admin) {
             var scheduleEntries = await User.getScheduleEntriesWithUsers(sortByField, reverseSort=false);
@@ -25,7 +27,6 @@ exports.index = async (req,res) => {
         }
         const dashboardEntries = await generateDashboardEntries(scheduleEntries,req.app);
         
-        console.log(dashboardEntries);
         res.render("scheduleEntries/dashboard", {dashboardEntries, loggedIn, currentRoute,sortBy, admin});
     } catch (error) {
         console.log(error);
