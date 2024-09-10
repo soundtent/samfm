@@ -18,7 +18,7 @@ router.get('/helpers/check-consistency', checkConsistency);
 
 router.get('/dashboard', checkAuthenticated, scheduleEntriesController.index);
 router.get('/schedule-entries/new', checkAuthenticated, scheduleEntriesController.new);
-router.get('/schedule-entries/:id', checkAuthenticated, scheduleEntriesController.show);
+router.get('/schedule-entries/:id', scheduleEntriesController.show);
 router.get('/schedule-entries/:id/edit', checkAuthenticated, scheduleEntriesController.edit);
 router.post('/schedule-entries', checkAuthenticated, uploadMiddleware, convertStartEndTimes, validate.formValidation(), validate.createHandler, scheduleEntriesController.create);
 router.put('/schedule-entries/:id/', checkAuthenticated, uploadMiddleware, convertStartEndTimes, validate.formValidation(), validate.updateHandler, scheduleEntriesController.update);

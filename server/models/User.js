@@ -73,8 +73,6 @@ UserSchema.statics.getScheduleEntriesWithUsers = async (sortByField, reverseSort
     },
   ];
 
-  console.log(aggregation);
-
   if (user_ids.length == 0) {
     aggregation = [aggregation[0]]; // no need to filter if searching all users
   }

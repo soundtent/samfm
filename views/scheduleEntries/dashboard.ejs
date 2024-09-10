@@ -20,6 +20,7 @@
             <th style="width:1rem; vertical-align: bottom;">start – end (CEST)</th>
             <th style="width:1rem; vertical-align: bottom;">location</th>
             <th style="width:1rem; vertical-align: bottom;">participants</th>
+            <th style="width:1rem; vertical-align: bottom;">description</th>
             <th style="width:1rem; vertical-align: bottom;">stream url</th>
             <th style="width:1rem; vertical-align: bottom;">notes</th>
             <th style="width:1rem; vertical-align: bottom;">actions</th>
@@ -27,6 +28,7 @@
             <th style="width:1rem; vertical-align: bottom;">start – end (CEST)</th>
             <th style="width:1rem; vertical-align: bottom;">location</th>
             <th style="width:1rem; vertical-align: bottom;">participants</th>
+            <th style="width:1rem; vertical-align: bottom;">description</th>
             <th style="width:1rem; vertical-align: bottom;">stream url</th>
             <th style="width:1rem; vertical-align: bottom;">actions</th>
         <% } %>
@@ -38,6 +40,7 @@
                 <td class="dashboard__timestring"><%- column.timeString %></td>
                 <td><%= column.location %></td>
                 <td><%= column.participants %></td>
+                <td><%= column.description %></td>
                 <td><a href="<%= column.streamUrl %>"><%= column.streamUrl %></a></td>
                 <% if (admin) { %>
                     <td><%= column.notes %></td>
