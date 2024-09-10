@@ -54,7 +54,7 @@
                     <a href="/schedule-entries/<%= column._id %>">View Entry</a><br>
                     <a href="/schedule-entries/<%= column._id %>/edit">Edit Entry</a><br>
                     <form action="/schedule-entries/<%= column._id %>?_method=DELETE" method="POST">
-                        <a href="#" onclick="this.parentElement.submit()">Delete</a>
+                        <a href="#" onclick="if(!confirm('Are you sure you want to delete?')){return false;} else {this.parentElement.submit()}">Delete</a>
                     </form>
                 </td>
             </tr>
