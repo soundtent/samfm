@@ -102,6 +102,10 @@ exports.create = async (req,res) => {
         }
 
         await User.updateOne({_id: req.user.id}, {"$push": {scheduleEntries: scheduleEntry.id}});
+
+        webSocketServer.clients.forEach(function each(client) {
+            client.send(JSON.stringify({id: scheduleEntry.id, nowPlaying: scheduleEntry.nowPlaying}));
+        });
         res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
@@ -154,6 +158,10 @@ exports.delete = async (req,res) => {
         await ScheduleEntry.deleteOne({_id: id});
         
         await User.updateOne({_id: req.user.id}, {"$pull": {scheduleEntries: id}});
+        
+        webSocketServer.clients.forEach(function each(client) {
+            client.send(JSON.stringify({id: req.params.id, nowPlaying: false}));
+        });
         res.redirect("/dashboard");
     } catch (error) {
         console.log(error);
