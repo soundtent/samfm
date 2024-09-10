@@ -29,10 +29,10 @@ const app = express();
 const port = process.env.PORT;
 
 
-app.set("startDay", "2024-09-08"); //inclusive
-app.set("endDay", "2024-09-13"); //inclusive
+app.set("startDay", "2024-09-10"); //inclusive
+app.set("endDay", "2024-09-14"); //inclusive
 // app.set("timezone", "America/New_York");
-app.set("timeZone", "Europe/Berlin");
+app.set("timezone", "Europe/Berlin");
 
 //allows PUT and POST requests to be received by middleware
 app.use(express.urlencoded({extended: true}));
