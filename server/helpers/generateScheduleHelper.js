@@ -79,8 +79,8 @@ exports.generateSchedule = async(app) => {
         var scheduleDatum = {title: weekday, columns: columns};
         scheduleData.push(scheduleDatum);
 
-        runningDay = runningDay.add(1, "d");
         if (runningDay.format("YYYY-MM-DD") == endDay) {break;}
+        runningDay = runningDay.add(1, "d");
     }
     return scheduleData;
 }

@@ -54,6 +54,7 @@ exports.new = async (req,res) => {
 
         req.session.messages = [];
         req.session.body = [];
+        console.log(projectDays);
         
         const scheduleEntry = await new ScheduleEntry(unsavedFormData); // only for view, never saved
 
