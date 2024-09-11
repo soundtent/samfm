@@ -49,30 +49,50 @@
         <% } %>
     </select>
     <select name="startTime">
-        <% var chosenSelect = false; %>
-        <% for (var hour=0;hour<24;hour++) { %>
-            <% for (var min=0;min<60;min+=15) { %>
-                <option value="<%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>" 
-                    <% if (hour*60 + min >= startHours*60+startMins && !chosenSelect) { %>
-                        <% chosenSelect = true; %>
-                        selected
-                    <% } %>>
-                    <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+        <% var dist = -9999999;var chosenSelect = false;%>
+        <% for (var hours=0;hours<24;hours++) { %>
+            <% for (var mins=0;mins<60;mins+=15) { %>
+                <% 
+                    const startHoursString = startHours.toString().padStart(2,"0");
+                    const startMinsString = startMins.toString().padStart(2,"0");
+                    const hoursString = hours.toString().padStart(2,"0");
+                    const minsString = mins.toString().padStart(2,"0");
+                    dist = (hours*60 + mins) - (startHours*60+startMins);
+                %>
+                <% if (dist > 0 && !chosenSelect) { %>
+                    <% chosenSelect = true %>
+                    <option selected="selected" value="<%= startHoursString %>:<%= startMinsString %>">
+                        <%= startHoursString %>:<%= startMinsString %>
+                    </option>
+                <% } %>>
+                <option value="<%= hoursString %>:<%= minsString %>" <% if (dist==0) {%>selected="selected"<% } %> >
+                    <% if (dist==0) {chosenSelect = true;} %> 
+                    <%= hoursString %>:<%= minsString %>
                 </option>
             <% } %>
         <% } %>
     </select>
     to 
     <select name="endTime">
-        <% var chosenSelect = false; %>
-        <% for (var hour=0;hour<24;hour++) { %>
-            <% for (var min=0;min<60;min+=15) { %>
-                <option value="<%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>" 
-                    <% if (hour*60 + min >= endHours*60+endMins && !chosenSelect) { %>
-                        <% chosenSelect = true; %>
-                        selected
-                    <% } %>>
-                    <%= hour.toString().padStart(2,"0") %>:<%= min.toString().padStart(2,"0") %>
+        <% var dist = -9999999;var chosenSelect = false;%>
+        <% for (var hours=0;hours<24;hours++) { %>
+            <% for (var mins=0;mins<60;mins+=15) { %>
+                <% 
+                    const endHoursString = endHours.toString().padStart(2,"0");
+                    const endMinsString = endMins.toString().padStart(2,"0");
+                    const hoursString = hours.toString().padStart(2,"0");
+                    const minsString = mins.toString().padStart(2,"0");
+                    dist = (hours*60 + mins) - (endHours*60+endMins);
+                %>
+                <% if (dist > 0 && !chosenSelect) { %>
+                    <% chosenSelect = true %>
+                    <option selected="selected" value="<%= endHoursString %>:<%= endMinsString %>">
+                        <%= endHoursString %>:<%= endMinsString %>
+                    </option>
+                <% } %>>
+                <option value="<%= hoursString %>:<%= minsString %>" <% if (dist==0) {%>selected="selected"<% } %> >
+                    <% if (dist==0) {chosenSelect = true;} %> 
+                    <%= hoursString %>:<%= minsString %>
                 </option>
             <% } %>
         <% } %>
