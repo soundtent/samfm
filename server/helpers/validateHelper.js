@@ -68,6 +68,9 @@ module.exports.formValidation = function() {
 
 module.exports.updateHandler = (req, res, next) => {
   const result = validationResult(req);
+
+  req.body.description = req.body.description.replaceAll(/\r\n|\r|\n/g,"<br>");
+
   if (!result.isEmpty()) {
     for (var k=0;k<req.files.length;k++) {
       unlink(req.files[k].path, (err) => { if (err) throw err; });
@@ -82,6 +85,9 @@ module.exports.updateHandler = (req, res, next) => {
 
 module.exports.createHandler = (req, res, next) => {
   const result = validationResult(req);
+
+  req.body.description = req.body.description.replaceAll(/\r\n|\r|\n/g,"<br>");
+
   if (!result.isEmpty()) {
     for (var k=0;k<req.files.length;k++) {
       unlink(req.files[k].path, (err) => { if (err) throw err; });

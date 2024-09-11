@@ -3,7 +3,7 @@
 <span class="underline"><%= scheduleEntry.location %></span>
 <p><%= scheduleEntry.participants %></p>
 <div class="break"></div>
-<span><%= scheduleEntry.description %></span>
+<span><%- scheduleEntry.description %></span>
 <div class="break"></div>
 <% if (scheduleEntry.images.length > 0) { %>
     <img class="entry-page__image" src="<%= pathToUrl(scheduleEntry.images[0]) %>">

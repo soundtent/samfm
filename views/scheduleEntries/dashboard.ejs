@@ -40,7 +40,7 @@
                 <td class="dashboard__timestring"><%- column.timeString %></td>
                 <td><%= column.location %></td>
                 <td><%= column.participants %></td>
-                <td><%= column.description %></td>
+                <td><%- column.description %></td>
                 <td><a href="<%= column.streamUrl %>"><%= column.streamUrl %></a></td>
                 <% if (admin) { %>
                     <td><%= column.notes %></td>
