@@ -448,6 +448,7 @@ $dashboard-table-padding-y: 10px;
 }
 
 @media screen and (max-width:530px) {
+
     .header {
         margin-bottom: 1rem;
     }
@@ -474,6 +475,17 @@ $dashboard-table-padding-y: 10px;
     }
     .schedule__cest-label {
         left: 52.0%;
+    }
+
+    .dashboard-table th:nth-child(1),
+    .dashboard-table td:nth-child(1),
+    .dashboard-table th:nth-child(3),
+    .dashboard-table td:nth-child(3),
+    .dashboard-table th:nth-child(4),
+    .dashboard-table td:nth-child(4) {
+        display: none;
+        // background: green;
+
     }
 
     .entry-form > * {

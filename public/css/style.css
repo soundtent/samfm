@@ -395,6 +395,14 @@ a:hover {
   .schedule__cest-label {
     left: 52.0%; }
 
+  .dashboard-table th:nth-child(1),
+  .dashboard-table td:nth-child(1),
+  .dashboard-table th:nth-child(3),
+  .dashboard-table td:nth-child(3),
+  .dashboard-table th:nth-child(4),
+  .dashboard-table td:nth-child(4) {
+    display: none; }
+
   .entry-form > * {
     box-sizing: border-box;
     width: 100% !important; }
