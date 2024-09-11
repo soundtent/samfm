@@ -138,8 +138,8 @@ a:hover {
 
 /* Page
 --------------------------------------------- */
-.main {
-  width: 100%; }
+.entry-page {
+  width: 50%; }
 
 /* Header
 --------------------------------------------- */
@@ -364,7 +364,10 @@ a:hover {
     flex-wrap: wrap; }
 
   .get-involved > div {
-    width: 100%; } }
+    width: 100%; }
+
+  .entry-page {
+    width: 60%; } }
 @media screen and (max-width: 530px) {
   .header {
     margin-bottom: 1rem; }
@@ -394,7 +397,10 @@ a:hover {
 
   .entry-form > * {
     box-sizing: border-box;
-    width: 100% !important; } }
+    width: 100% !important; }
+
+  .entry-page {
+    width: 100%; } }
 @media screen and (max-width: 330px) {
   .schedule__cest-label {
     top: -1rem; } }

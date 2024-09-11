@@ -164,8 +164,8 @@ a:hover {
 
 /* Page
 --------------------------------------------- */
-.main {
-    width: 100%;
+.entry-page {
+    width: 50%;
 }
 
 /* Header
@@ -442,6 +442,9 @@ $dashboard-table-padding-y: 10px;
     .get-involved__partner-logos {
         // width: 50%;
     }
+    .entry-page {
+        width: 60%;
+    }
 }
 
 @media screen and (max-width:530px) {
@@ -476,6 +479,9 @@ $dashboard-table-padding-y: 10px;
     .entry-form > * {
         box-sizing: border-box;
         width: 100% !important;
+    }
+    .entry-page {
+        width: 100%;
     }
 }
 
