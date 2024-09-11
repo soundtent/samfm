@@ -22,7 +22,7 @@
             <th style="width:1rem; vertical-align: bottom;">participants</th>
             <th style="width:1rem; vertical-align: bottom;">description</th>
             <th style="width:1rem; vertical-align: bottom;">stream url</th>
-            <th style="width:1rem; vertical-align: bottom;">notes</th>
+            <!-- <th style="width:1rem; vertical-align: bottom;">notes</th> -->
             <th style="width:1rem; vertical-align: bottom;">actions</th>
         <% } else { %>
             <th style="width:1rem; vertical-align: bottom;">start – end (CEST)</th>
@@ -43,7 +43,7 @@
                 <td><%- column.description %></td>
                 <td><a href="<%= column.streamUrl %>"><%= column.streamUrl %></a></td>
                 <% if (admin) { %>
-                    <td><%= column.notes %></td>
+                    <!-- <td><%= column.notes %></td> -->
                 <% } %>
                 <td>
                     <form action="/schedule-entries/now-playing?_method=POST" method="POST">
