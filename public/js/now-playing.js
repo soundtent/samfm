@@ -14,6 +14,18 @@ socket.addEventListener('message', function (event) {
     }
 })
 
+socket.onclose = function(e) {
+    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    setTimeout(function() {
+        connect();
+    }, 1000);
+};
+
+socket.onerror = function(err) {
+    console.error('Socket encountered error: ', err.message, 'Closing socket');
+socket.close();
+};
+
 function loadNowPlayingEntry() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/schedule-entries/now-playing", true);

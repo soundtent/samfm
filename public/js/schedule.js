@@ -10,3 +10,15 @@ socket.addEventListener('open', function (event) {
 socket.addEventListener('message', function (event) {
     location.reload();
 })
+
+socket.onclose = function(e) {
+    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    setTimeout(function() {
+        connect();
+    }, 1000);
+};
+
+socket.onerror = function(err) {
+    console.error('Socket encountered error: ', err.message, 'Closing socket');
+socket.close();
+};

@@ -26,7 +26,8 @@ const connectDB = require('./server/config/dbConfig');
 const initialisePassportLocalStrategy = require('./server/config/authConfig');
 
 const app = express();
-const port = process.env.PORT;
+const httpPort = process.env.HTTP_PORT;
+const httpsPort = process.env.HTTPS_PORT;
 
 
 app.set("startDay", "2024-09-10"); //inclusive
@@ -60,19 +61,18 @@ app.use(session({
 }));
 
 
-//http
-var httpServer
+//http / https
+var httpServer = http.createServer(app);
+var httpsServer;
 if (process.env.NODE_ENV == "production") {
-  var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
-  var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
-  httpServer = https.createServer({ key: privateKey, cert: certificate }, app)
-}
-else {
-  httpServer = http.createServer(app);
+  // var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
+  // var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
+  // httpsServer = https.createServer({ key: privateKey, cert: certificate }, app)
+  httpsServer = https.createServer({}, app)
 }
 
 //Web sockets
-const webSocketServer = new WebSocket.WebSocketServer({server: httpServer});
+const webSocketServer = new WebSocket.WebSocketServer({server: httpsServer});
 app.set('webSocketServer', webSocketServer);
 
 connectDB(mongoUrl);
@@ -92,10 +92,9 @@ app.use(require('./server/routes/routes'));
 app.use(require('./server/routes/authRoutes'));
 
 
-httpServer.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+httpServer.listen(httpPort, () => {
+  console.log(`App listening on port ${httpPort} (http)`);
 });
-// Not needed anymore because using httpServer instead
-// app.listen(port, () => {
-  // console.log(`App listening on port ${port}`);
-// })
+httpsServer.listen(httpsPort, () => {
+  console.log(`App listening on port ${httpsPort} (https)`);
+});

@@ -72,7 +72,10 @@ exports.generateSchedule = async(app) => {
                 columns.push({content: entryString, scheduleEntry: entry, live: live} );
             }
         });
-        columns.sort();
+        columns = columns.sort(function(a, b) {
+            var x = a.scheduleEntry.startTime; var y = b.scheduleEntry.startTime;
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
         var scheduleDatum = {title: weekday, columns: columns};
         scheduleData.push(scheduleDatum);
 
