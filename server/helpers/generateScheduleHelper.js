@@ -68,7 +68,7 @@ exports.generateSchedule = async(app) => {
                 }
                 entry.location = limitCharacters(entry.location,50);
                 entry.participants = limitCharacters(entry.participants,50);
-                entry.description = limitCharacters(entry.description,100);
+                entry.description = limitCharacters(entry.description.replaceAll("<br>"," "),100);
                 columns.push({content: entryString, scheduleEntry: entry, live: live} );
             }
         });
