@@ -11,11 +11,11 @@ exports.index = async (req,res) => {
         const loggedIn = req.isAuthenticated();
         const admin = req.user.admin;
         const currentRoute = "/dashboard";
-        const sortBy = req.query['sort-by'] || "date-created";
+        const sortBy = req.query['sort-by'] || "start-time";
 
-        var sortByField = "createdAt";
-        if (sortBy == "start-time") {
-            sortByField = "startTime";
+        var sortByField = "startTime";
+        if (sortBy == "date-created") {
+            sortByField = "createdAt";
         }
 
         if (admin) {
