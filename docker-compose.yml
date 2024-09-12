@@ -10,7 +10,7 @@ services:
     #      MONGO_INITDB_DATABASE: init
     volumes:
       - ./samfm_data/samfm-mongodb/:/data/db/ #retain database on disk
-      - /etc/timezone:/etc/timezone:ro #use timezone of server
+      #- /etc/timezone:/etc/timezone:ro #use timezone of server
 
   mongo-express:
     image: mongo-express

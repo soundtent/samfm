@@ -15,7 +15,7 @@
     <input type="text" name="participants" value="<%= scheduleEntry.participants %>"><br><br>
 
     <label for="description">Description</label><br>
-    <textarea name="description"><%= scheduleEntry.description %></textarea><br><br>
+    <textarea name="description"><%= scheduleEntry.description.replaceAll("<br>", "\n") %></textarea><br><br>
 
     <label for="streamUrl">Stream url</label><br>
     <input type="text" name="streamUrl" value="<%= scheduleEntry.streamUrl %>"><br><br>
