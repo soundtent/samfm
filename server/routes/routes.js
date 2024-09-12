@@ -10,22 +10,6 @@ const validate = require("../helpers/validateHelper.js");
 const checkConsistency = require("../helpers/checkConsistencyHelper.js");
 const convertStartEndTimes = require("../helpers/convertStartEndTimes.js");
 
-
-const ScheduleEntry = require("../models/ScheduleEntry");
-router.get('/api/sortingtest', async (req,res,next) => {
-    var aggregation = [
-        { 
-            $project: { "startTime": 1, "location": 1 } 
-        },
-        { 
-            $sort: { "startTime": 1 } 
-        },
-    ];
-    
-    const result = await ScheduleEntry.aggregate(aggregation);
-    res.status(200).send(result);
-});
-
 router.get('/', appController.nowPlaying);
 router.get('/schedule', appController.schedule);
 router.get('/get-involved', appController.getInvolved);
