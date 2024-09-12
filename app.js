@@ -66,10 +66,10 @@ var httpServer = http.createServer(app);
 var httpsServer;
 var webSocketServer;
 if (process.env.NODE_ENV == "production") {
-  // var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
-  // var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
-  // httpsServer = https.createServer({ key: privateKey, cert: certificate }, app)
-  httpsServer = https.createServer({}, app)
+  var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
+  var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
+  httpsServer = https.createServer({ key: privateKey, cert: certificate }, app)
+  // httpsServer = https.createServer({}, app)
   webSocketServer = new WebSocket.WebSocketServer({server: httpsServer});
 }
 else {
