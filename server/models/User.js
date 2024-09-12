@@ -38,6 +38,9 @@ UserSchema.statics.getScheduleEntriesWithUsers = async (sortByField, reverseSort
         as: "users"
       }
     },
+    { 
+      $sort: { [sortByField]: sortNum } 
+    },
     { //filter out users which are not part of user_ids
       $project: {
         location: 1,
@@ -68,13 +71,10 @@ UserSchema.statics.getScheduleEntriesWithUsers = async (sortByField, reverseSort
         }
       }
     },
-    { 
-      $sort: { [sortByField]: sortNum } 
-    },
   ];
 
   if (user_ids.length == 0) {
-    aggregation = [aggregation[0]]; // no need to filter if searching all users
+    aggregation = [aggregation[0],aggregation[1]]; // no need to filter if searching all users
   }
 
   const scheduleEntriesWithUsers = await ScheduleEntry.aggregate(aggregation);
