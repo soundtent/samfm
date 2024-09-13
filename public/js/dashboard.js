@@ -13,7 +13,8 @@ async function getStatus() {
 
         dashboardUrls.each(function(index, element) {
             if (serverUrls.includes(element.href) ) {
-                $(element).closest("tr").addClass("bold");
+                // $(element).closest("tr").addClass("bold");
+                $(element).addClass("bold");
             }
         });
     } catch (error) {
