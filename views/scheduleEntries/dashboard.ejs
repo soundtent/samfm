@@ -41,7 +41,7 @@
                 <td><%= column.location %></td>
                 <td><%= column.participants %></td>
                 <td><%- column.description %></td>
-                <td><a href="<%= column.streamUrl %>" target="_blank"><%= column.streamUrl %></a></td>
+                <td><a class="dashboard__stream-url" href="<%= column.streamUrl %>" target="_blank"><%= column.streamUrl %></a></td>
                 <% if (admin) { %>
                     <!-- <td><%= column.notes %></td> -->
                 <% } %>
@@ -51,7 +51,7 @@
                         <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (column.nowPlaying) { %>checked<%} %> >
                         <input type="hidden" name="id" value="<%= column._id %>"/>
                     </form>
-                    <a href="/schedule-entries/<%= column._id %>">View Entry</a><br>
+                    <a href="/schedule-entries/<%= column._id %>" target="_blank">View Entry</a><br>
                     <a href="/schedule-entries/<%= column._id %>/edit" target="_blank">Edit Entry</a><br>
                     <form action="/schedule-entries/<%= column._id %>?_method=DELETE" method="POST">
                         <a href="#" onclick="if(!confirm('Are you sure you want to delete?')){return false;} else {this.parentElement.submit()}">Delete</a>
@@ -61,5 +61,6 @@
         <% }) %>
     </tbody>
 </table>
+<span class="server-streams"></span>
 
 <script type="text/javascript" src="/js/dashboard.js"></script>
