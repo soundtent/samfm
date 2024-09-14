@@ -30,9 +30,6 @@ services:
   samfm-app:
     build: .
     container_name: samfm-app
-    ports:
-      - "5001:${HTTPS_PORT}"
-      - "5000:${HTTP_PORT}"
     environment:
       VIRTUAL_PROTO: https
       VIRTUAL_HOST: soundcamp.radio
