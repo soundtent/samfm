@@ -33,6 +33,8 @@ services:
     ports:
       - "443:${HTTPS_PORT}"
       - "80:${HTTP_PORT}"
+    environment:
+      VIRTUAL_HOST=soundcamp.radio
     restart: always
     depends_on:
       - mongo
