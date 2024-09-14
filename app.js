@@ -26,6 +26,8 @@ const connectDB = require('./server/config/dbConfig');
 const initialisePassportLocalStrategy = require('./server/config/authConfig');
 
 const app = express();
+const httpPort = process.env.HTTP_PORT;
+const httpsPort = process.env.HTTPS_PORT;
 
 
 app.set("startDay", "2024-09-10"); //inclusive
@@ -95,11 +97,11 @@ app.use(require('./server/routes/authRoutes'));
 
 
 
-httpServer.listen(80, () => {
-  console.log(`App listening on port 80 (http)`);
+httpServer.listen(httpPort, () => {
+  console.log(`App listening on port ${httpPort} (http)`);
 });
 if (process.env.NODE_ENV == "production") {
-  httpsServer.listen(443, () => {
-    console.log(`App listening on port 443 (https)`);
+  httpsServer.listen(httpsPort, () => {
+    console.log(`App listening on port ${httpsPort} (https)`);
   });
 }

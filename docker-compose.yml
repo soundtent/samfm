@@ -30,9 +30,9 @@ services:
   samfm-app:
     build: .
     container_name: samfm-app
-    environment:
-      VIRTUAL_PROTO: https
-      VIRTUAL_HOST: soundcamp.radio
+    ports:
+      - "5001:${HTTPS_PORT}"
+      - "5000:${HTTP_PORT}"
     restart: always
     depends_on:
       - mongo
@@ -40,8 +40,3 @@ services:
       - ./samfm_data/samfm-app:/app/public/user-uploads # retain public data on disk
       - /etc/letsencrypt/live/soundcamp.radio/fullchain.pem:/app/certificates/fullchain.pem
       - /etc/letsencrypt/live/soundcamp.radio/privkey.pem:/app/certificates/privkey.pem
-
-networks:
-  default:
-    name: primary-network
-    external: true
