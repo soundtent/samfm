@@ -43,3 +43,8 @@ services:
       - ./samfm_data/samfm-app:/app/public/user-uploads # retain public data on disk
       - /etc/letsencrypt/live/soundcamp.radio/fullchain.pem:/app/certificates/fullchain.pem
       - /etc/letsencrypt/live/soundcamp.radio/privkey.pem:/app/certificates/privkey.pem
+
+networks:
+  default:
+    name: primary-network
+    external: true
