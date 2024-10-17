@@ -1,13 +1,10 @@
 services:
-
   samfm-app:
     build: .
     container_name: samfm-app
     ports:
       - "5000:${PORT}"
     restart: always
-    depends_on:
-      - mongo
     volumes:
       - ./samfm_data/samfm-app:/app/public/user-uploads # retain public data on disk
       #- /etc/letsencrypt/live/soundcamp.radio/fullchain.pem:/app/certificates/fullchain.pem
