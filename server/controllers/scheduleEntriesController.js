@@ -108,14 +108,14 @@ exports.create = async (req,res) => {
         webSocketServer.clients.forEach(function each(client) {
             client.send(JSON.stringify({id: scheduleEntry.id, nowPlaying: scheduleEntry.nowPlaying}));
         });
-        res.redirect(`/schedule-entries/${scheduleEntry._id}`);
+        res.redirect(`/sam_fm/sam_fm/schedule-entries/${scheduleEntry._id}`);
     } catch (error) {
         console.log(error);
 
         for (var i=0;i<req.files.length;i++) {
             unlink(req.files[i].path, (err) => { if (err) console.log(err); });
         }
-        res.redirect('/schedule-entries/new');
+        res.redirect('/sam_fm/schedule-entries/new');
     }
 };
 
@@ -140,14 +140,14 @@ exports.update = async (req,res) => {
             client.send(JSON.stringify({id: req.params.id, nowPlaying: scheduleEntry.nowPlaying}));
         });
 
-        res.redirect(`/schedule-entries/${scheduleEntry._id}`);
+        res.redirect(`/sam_fm/schedule-entries/${scheduleEntry._id}`);
     } catch (error) {
         console.log(error);
 
         for (var i=0;i<req.files.length;i++) {
             unlink(req.files[i].path, (err) => { if (err) console.log(err); });
         }
-        res.redirect(`/schedule-entries/${req.params.id}/edit`);
+        res.redirect(`/sam_fm/schedule-entries/${req.params.id}/edit`);
     }
 };
 

@@ -78,7 +78,7 @@ module.exports.updateHandler = (req, res, next) => {
     
     req.session.messages = result.array();
     req.session.body = req.body;
-    return res.redirect(`/schedule-entries/${req.params.id}/edit`);
+    return res.redirect(`/sam_fm/schedule-entries/${req.params.id}/edit`);
   }
   next();
 };
@@ -95,7 +95,7 @@ module.exports.createHandler = (req, res, next) => {
     
     req.session.messages = result.array();
     req.session.body = req.body;
-    return res.redirect(`/schedule-entries/new`);
+    return res.redirect(`/sam_fm/schedule-entries/new`);
   }
   next();
 };
@@ -123,7 +123,7 @@ module.exports.loginHandler = (req, res, next) => {
   req.session.savedUsername = req.body.username;
   if (!result.isEmpty()) {
     req.session.messages = result.array();
-    return res.redirect(`/login`);
+    return res.redirect(`/sam_fm/login`);
   }
   next();
 };
@@ -145,7 +145,7 @@ module.exports.registerHandler = (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     req.session.messages = result.array();
-    return res.redirect(`/register`);
+    return res.redirect(`/sam_fm/register`);
   }
   next();
 };

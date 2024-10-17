@@ -50,7 +50,7 @@ router.post('/forgot-password', async (req, res) => {
     }
     else {
         req.session.messages = [{msg: "Cannot find account."}]
-        res.redirect("/forgot-password");
+        res.redirect("/sam_fm/forgot-password");
     }
 });
 
@@ -105,7 +105,7 @@ router.post('/register', validate.registerValidation(), validate.registerHandler
       if (err) {
         res.send(err);
       } else {
-        res.redirect("/login");
+        res.redirect("/sam_fm/login");
       }
     }
   )
@@ -117,25 +117,25 @@ router.post('/register', validate.registerValidation(), validate.registerHandler
   /login-success, if failure, send to /login-failure
 */
 router.post('/login', validate.loginValidation(), validate.loginHandler, passport.authenticate('local', { 
-  failureRedirect: '/login-failure', 
-  successRedirect: '/login-success'
+  failureRedirect: '/sam_fm/login-failure', 
+  successRedirect: '/sam_fm/login-success'
 }), (err, req, res, next) => {
   if (err) next(err);
 });
 
 router.get('/login-failure', (req, res, next) => {
   req.session.messages = [{msg: "Invalid credentials"}];
-  res.redirect('/login');
+  res.redirect('/sam_fm/login');
 });
 
 router.get('/login-success', (req, res, next) => {
-  res.redirect('/dashboard');
+  res.redirect('/sam_fm/dashboard');
 });
 
 router.get('/logout', function(req, res) {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/schedule');
+        res.redirect('/sam_fm/schedule');
     });
 });
 
