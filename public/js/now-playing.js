@@ -1,30 +1,32 @@
-//Create websocket connection
-const socket = new WebSocket(webSocketUrl);
+function connect() {
+    //Create websocket connection
+    const socket = new WebSocket(webSocketUrl);
+    //Connection opened
+    socket.addEventListener('open', function (event) {
+        // socket.send('Hello Server!');
+    })
+    //Listen for messages
+    socket.addEventListener('message', function (event) {
+        var message = JSON.parse(event.data);
+        if (message.nowPlaying) {
+            loadNowPlayingEntry();
+        }
+    })
+    socket.onclose = function(e) {
+        console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+        setTimeout(function() {
+            connect();
+        }, 1000);
+    };
+    
+    socket.onerror = function(err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+    socket.close();
+    };
 
-//Connection opened
-socket.addEventListener('open', function (event) {
-    // socket.send('Hello Server!');
-})
+    loadNowPlayingEntry();
+}
 
-//Listen for messages
-socket.addEventListener('message', function (event) {
-    var message = JSON.parse(event.data);
-    if (message.nowPlaying) {
-        loadNowPlayingEntry();
-    }
-})
-
-socket.onclose = function(e) {
-    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-    setTimeout(function() {
-        connect();
-    }, 1000);
-};
-
-socket.onerror = function(err) {
-    console.error('Socket encountered error: ', err.message, 'Closing socket');
-socket.close();
-};
 
 function loadNowPlayingEntry() {
     let xhr = new XMLHttpRequest();
@@ -55,4 +57,4 @@ function loadNowPlayingEntry() {
     xhr.send();
 }
 
-loadNowPlayingEntry();
+connect();

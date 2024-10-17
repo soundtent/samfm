@@ -5,7 +5,7 @@ exports.schedule = async(req, res) => {
     const scheduleData = await generateSchedule(req.app);
     const loggedIn = req.isAuthenticated();
     var webSocketUrl = "ws://"+req.headers.host;
-    if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
+    // if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
     var admin = false;
     if (loggedIn && req.user.admin) {
         admin = true;
@@ -19,7 +19,7 @@ exports.nowPlaying = async(req, res) => {
     const loggedIn = req.isAuthenticated();
     const currentRoute = "/";
     var webSocketUrl = "ws://"+req.headers.host;
-    if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
+    // if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
 
     res.render('now-playing', {loggedIn, webSocketUrl, currentRoute});
 };

@@ -2,12 +2,12 @@ var mongoUrl;
 if (process.env.NODE_ENV == "production") {
   require('dotenv').config({ path: '.env' });
   console.log('Using environment file: .env');
-  mongoUrl = `mongodb://${process.env.MONGODB_ROOT_USERNAME}:${process.env.MONGODB_ROOT_PASSWORD}@${process.env.MONGODB_CONTAINER_NAME}:27017/${process.env.MONGODB_DATABASE_NAME}?authSource=admin`;
+  mongoUrl = `mongodb://${process.env.MONGODB_ROOT_USERNAME}:${process.env.MONGODB_ROOT_PASSWORD}@${process.env.MONGODB_CONTAINER_NAME}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE_NAME}?authSource=admin`;
 }
 else {
   require('dotenv').config({ path: '.env.dev' });
   console.log('Using environment file: .env.dev')
-  mongoUrl = `mongodb://localhost:27017/${process.env.MONGODB_DATABASE_NAME}`;
+  mongoUrl = `mongodb://localhost:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE_NAME}`;
 }
 
 const express = require('express');
@@ -26,8 +26,7 @@ const connectDB = require('./server/config/dbConfig');
 const initialisePassportLocalStrategy = require('./server/config/authConfig');
 
 const app = express();
-const httpPort = process.env.HTTP_PORT;
-const httpsPort = process.env.HTTPS_PORT;
+const port = process.env.PORT;
 
 
 app.set("startDay", "2024-09-10"); //inclusive
@@ -65,16 +64,15 @@ app.use(session({
 var httpServer = http.createServer(app);
 var httpsServer;
 var webSocketServer;
-if (process.env.NODE_ENV == "production") {
-  var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
-  var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
-  httpsServer = https.createServer({ key: privateKey, cert: certificate }, app)
-  // httpsServer = https.createServer({}, app)
-  webSocketServer = new WebSocket.WebSocketServer({server: httpsServer});
-}
-else {
+// if (process.env.NODE_ENV == "production") {
+  // var privateKey = fs.readFileSync( 'certificates/privkey.pem' );
+  // var certificate = fs.readFileSync( 'certificates/fullchain.pem' );
+  // httpsServer = https.createServer({ key: privateKey, cert: certificate }, app)
+  // webSocketServer = new WebSocket.WebSocketServer({server: httpsServer});
+// }
+// else {
   webSocketServer = new WebSocket.WebSocketServer({server: httpServer});
-}
+// }
 
 //Web sockets
 app.set('webSocketServer', webSocketServer);
@@ -97,11 +95,11 @@ app.use(require('./server/routes/authRoutes'));
 
 
 
-httpServer.listen(httpPort, () => {
-  console.log(`App listening on port ${httpPort} (http)`);
+httpServer.listen(port, () => {
+  console.log(`App listening on port ${port} (http)`);
 });
-if (process.env.NODE_ENV == "production") {
-  httpsServer.listen(httpsPort, () => {
-    console.log(`App listening on port ${httpsPort} (https)`);
-  });
-}
+// if (process.env.NODE_ENV == "production") {
+  // httpsServer.listen(httpsPort, () => {
+    // console.log(`App listening on port ${httpsPort} (https)`);
+  // });
+// }
