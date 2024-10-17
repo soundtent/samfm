@@ -6,10 +6,10 @@ services:
       - "5000:${PORT}"
     restart: always
     volumes:
-      - ./samfm_data/samfm-app:/app/public/user-uploads # retain public data on disk
+      - ./samfm_data:/app/public/user-uploads # retain public data on disk
       #- /etc/letsencrypt/live/soundcamp.radio/fullchain.pem:/app/certificates/fullchain.pem
       #- /etc/letsencrypt/live/soundcamp.radio/privkey.pem:/app/certificates/privkey.pem
 networks:
   default:
-    external:
-      name: main-network
+    name: main-network
+    external: true
