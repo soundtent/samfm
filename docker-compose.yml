@@ -2,24 +2,22 @@ services:
 
   mongo:
     image: mongo:6
-    ports:
-        - '5001:27017'
     restart: always
-    container_name: samfm-mongo
+    container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
     #      MONGO_INITDB_DATABASE: init
     volumes:
-      - ./samfm_data/samfm-mongodb/:/data/db/ #retain database on disk
+      - ./mongo_data/mongodb/:/data/db/ #retain database on disk
       #- /etc/timezone:/etc/timezone:ro #use timezone of server
 
   mongo-express:
     image: mongo-express
     restart: always
-    container_name: samfm-mongo-online-admin-interface
+    container_name: mongo-online-admin-interface
     ports:
-      - 5002:8081
+      - 5001:8081
     depends_on:
       - mongo
     environment:

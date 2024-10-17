@@ -2,12 +2,12 @@ var mongoUrl;
 if (process.env.NODE_ENV == "production") {
   require('dotenv').config({ path: '.env' });
   console.log('Using environment file: .env');
-  mongoUrl = `mongodb://${process.env.MONGODB_ROOT_USERNAME}:${process.env.MONGODB_ROOT_PASSWORD}@${process.env.MONGODB_CONTAINER_NAME}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE_NAME}?authSource=admin`;
+  mongoUrl = `mongodb://${process.env.MONGODB_ROOT_USERNAME}:${process.env.MONGODB_ROOT_PASSWORD}@${process.env.MONGODB_CONTAINER_NAME}:27017/${process.env.MONGODB_DATABASE_NAME}?authSource=admin`;
 }
 else {
   require('dotenv').config({ path: '.env.dev' });
   console.log('Using environment file: .env.dev')
-  mongoUrl = `mongodb://localhost:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE_NAME}`;
+  mongoUrl = `mongodb://localhost:27017/${process.env.MONGODB_DATABASE_NAME}`;
 }
 
 const express = require('express');
