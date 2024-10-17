@@ -30,7 +30,7 @@ function connect() {
 
 function loadNowPlayingEntry() {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/schedule-entries/now-playing", true);
+    xhr.open("GET", "/sam_fm/api/schedule-entries/now-playing", true);
     xhr.onreadystatechange = function () {
         console.log("Received nowPlayingEntry");
         if (this.readyState == 4 && this.status == 200) {
