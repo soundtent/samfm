@@ -3,7 +3,7 @@ function connect() {
     const socket = new WebSocket(webSocketUrl);
     //Connection opened
     socket.addEventListener('open', function (event) {
-        // socket.send('Hello Server!');
+        console.log('Socket is open');
     })
     //Listen for messages
     socket.addEventListener('message', function (event) {
