@@ -4,7 +4,7 @@ const {generateSchedule} = require('../helpers/generateScheduleHelper.js');
 exports.schedule = async(req, res) => {
     const scheduleData = await generateSchedule(req.app);
     const loggedIn = req.isAuthenticated();
-    var webSocketUrl = "wss://soundcamp.radio/sam_fm";
+    var webSocketUrl = "wss://soundcamp.radio/sam_fm/";
     // if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
     var admin = false;
     if (loggedIn && req.user.admin) {
@@ -18,7 +18,7 @@ exports.schedule = async(req, res) => {
 exports.nowPlaying = async(req, res) => {
     const loggedIn = req.isAuthenticated();
     const currentRoute = "/";
-    var webSocketUrl = "wss://soundcamp.radio/sam_fm";
+    var webSocketUrl = "wss://soundcamp.radio/sam_fm/";
     // if (req.protocol == "https") {webSocketUrl = "wss://"+req.headers.host; }
 
     res.render('now-playing', {loggedIn, webSocketUrl, currentRoute});
