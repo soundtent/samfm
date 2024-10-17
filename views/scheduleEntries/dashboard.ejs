@@ -2,7 +2,7 @@
 
 <a href="/sam_fm/schedule-entries/new" target="_blank">create a new schedule entry</a><br><br>
 
-<form class="sort-by" method="get" action="/dashboard">
+<form class="sort-by" method="get" action="/sam_fm/dashboard">
     <label for="sort-by">Sort by:</label><br>
     <select name="sort-by" onchange="this.form.submit()">
         <option value="date-created" <% if (sortBy == "date-created") {%>selected="selected"<% } %> >Date created</option>
@@ -46,14 +46,14 @@
                     <!-- <td><%= column.notes %></td> -->
                 <% } %>
                 <td>
-                    <form action="/schedule-entries/now-playing?_method=POST" method="POST">
+                    <form action="/sam_fm/schedule-entries/now-playing?_method=POST" method="POST">
                         <span>Now Playing</span>
                         <input type="checkbox" name="now-playing" onChange="this.form.submit()" <% if (column.nowPlaying) { %>checked<%} %> >
                         <input type="hidden" name="id" value="<%= column._id %>"/>
                     </form>
                     <a href="/sam_fm/schedule-entries/<%= column._id %>" target="_blank">View Entry</a><br>
                     <a href="/sam_fm/schedule-entries/<%= column._id %>/edit" target="_blank">Edit Entry</a><br>
-                    <form action="/schedule-entries/<%= column._id %>?_method=DELETE" method="POST">
+                    <form action="/sam_fm/schedule-entries/<%= column._id %>?_method=DELETE" method="POST">
                         <a href="#" onclick="if(!confirm('Are you sure you want to delete?')){return false;} else {this.parentElement.submit()}">Delete</a>
                     </form>
                 </td>

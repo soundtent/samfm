@@ -1,10 +1,10 @@
 <h1>Edit entry</h1>
 <br>
-<form id="scheduleEntryForm" action="/schedule-entries/<%= scheduleEntry._id%>?_method=PUT" enctype="multipart/form-data" method="POST">
+<form id="scheduleEntryForm" action="/sam_fm/schedule-entries/<%= scheduleEntry._id%>?_method=PUT" enctype="multipart/form-data" method="POST">
     <%- include('partials/scheduleEntryForm.ejs') %>
     <input type="submit" value="Update">
 </form>
 <br>
-<form action="/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST" onSubmit="if(!confirm('Are you sure you want to delete?')){return false;}">
+<form action="/sam_fm/schedule-entries/<%= scheduleEntry._id %>?_method=DELETE" method="POST" onSubmit="if(!confirm('Are you sure you want to delete?')){return false;}">
     <input type="submit" value="Delete" class="button-delete">
 </form>
