@@ -165,7 +165,7 @@ exports.delete = async (req,res) => {
         webSocketServer.clients.forEach(function each(client) {
             client.send(JSON.stringify({id: req.params.id, nowPlaying: false}));
         });
-        res.redirect("/dashboard");
+        res.redirect("/sam_fm/dashboard");
     } catch (error) {
         console.log(error);
     }
@@ -186,7 +186,7 @@ exports.setNowPlaying = async (req,res) => {
         webSocketServer.clients.forEach(function each(client) {
             client.send(JSON.stringify({id: req.body.id, nowPlaying: nowPlaying}));
         });
-        res.redirect('/dashboard');
+        res.redirect('/sam_fm/dashboard');
     } catch (error) {
         console.log(error);
     }
