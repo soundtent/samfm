@@ -15,7 +15,7 @@ const uploadMiddleware = function(req, res, next) {
     const upload = multer({
         storage: storage,
         limits: {
-            fileSize: 5000000 // 5mb
+            // fileSize: 5000000 // 5mb
         }
     }).any('upload');
 
