@@ -14,7 +14,7 @@
 
         <tbody>
             <% scheduleDatum.columns.forEach( column => { %>
-                <tr class="underline <% if (column.live) { %>bold<% } %>" onclick="window.location='/schedule-entries/<%= column.scheduleEntry._id %>'">
+                <tr class="underline <% if (column.live) { %>bold<% } %>" onclick="window.location='/sam_fm/schedule-entries/<%= column.scheduleEntry._id %>'">
                     <td><%- column.content %></td>
                     <td><%= column.scheduleEntry.location %></td>
                     <td><%= column.scheduleEntry.participants %></td>

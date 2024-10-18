@@ -133,7 +133,7 @@
     </div>
 
     <div class="audioUpload-container">
-        <label for="upload">Audio file (mp3, max 5MB): </label><br>
+        <label for="upload">Audio file (mp3): </label><br>
         <% scheduleEntry.audios.forEach(audio => { %>
             <div class="audioUpload">
                 <input type="hidden" name="existingAudios[]" value="<%= audio %>" />
