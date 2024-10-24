@@ -38,7 +38,7 @@ function loadNowPlayingEntry() {
             var scheduleEntry = data.scheduleEntry;
             console.log(scheduleEntry);
             $(".now-playing__location").html(scheduleEntry.location);
-            $(".now-playing__location").attr("href",`/schedule-entries/sam_fm/${scheduleEntry._id}`);
+            $(".now-playing__location").attr("href",`/sam_fm/schedule-entries/${scheduleEntry._id}`);
             $(".now-playing__participants").html(scheduleEntry.participants);
             $(".now-playing__description").html(scheduleEntry.description);
             var imageString = "";
