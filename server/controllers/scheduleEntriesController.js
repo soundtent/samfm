@@ -196,7 +196,7 @@ exports.getNowPlaying = async (req,res) => {
     try {
         const nowPlayingEntry = await ScheduleEntry.getNowPlaying();
 
-        if (nowPlayingEntry && nowPlayingEntry.description.length > 200) {
+        if (nowPlayingEntry && nowPlayingEntry.description.length > 291) {
             const readmore = `<a href='schedule-entries/${nowPlayingEntry._id}'>read more</a>`;
             nowPlayingEntry.description = nowPlayingEntry.description.substring(0,300)+"... "+readmore;
         }
