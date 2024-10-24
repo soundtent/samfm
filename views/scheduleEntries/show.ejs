@@ -15,7 +15,7 @@
     <% } %>
     <div class="break"></div>
     <% scheduleEntry.audios.forEach(audio => { %>
-        <iframe style="width: 500px; height: 25px;border: none" src="https://max.meetingplaceforsounds.net/hosting/recordingplayer/?playercolor=rgb(46,140,93)&backgroundcolor=white&audiourl=<%= pathToUrl(audio) %>"></iframe> 
+        <iframe style="width: 500px; max-width: 100%; height: 25px;border: none" src="https://max.meetingplaceforsounds.net/hosting/recordingplayer/?playercolor=rgb(46,140,93)&backgroundcolor=white&audiourl=<%= pathToUrl(audio) %>"></iframe> 
         <div class="break"></div>
     <% }) %>
 </div>
