@@ -198,7 +198,7 @@ exports.getNowPlaying = async (req,res) => {
 
         if (nowPlayingEntry && nowPlayingEntry.description.length > 200) {
             const readmore = `<a href='schedule-entries/${nowPlayingEntry._id}'>read more</a>`;
-            nowPlayingEntry.description = nowPlayingEntry.description.substring(0,188)+"... "+readmore;
+            nowPlayingEntry.description = nowPlayingEntry.description.substring(0,300)+"... "+readmore;
         }
         
         var generatedImageUrls = [];
