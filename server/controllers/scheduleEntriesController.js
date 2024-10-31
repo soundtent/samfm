@@ -108,7 +108,7 @@ exports.create = async (req,res) => {
         webSocketServer.clients.forEach(function each(client) {
             client.send(JSON.stringify({id: scheduleEntry.id, nowPlaying: scheduleEntry.nowPlaying}));
         });
-        res.redirect(`/sam_fm/sam_fm/schedule-entries/${scheduleEntry._id}`);
+        res.redirect(`/sam_fm/schedule-entries/${scheduleEntry._id}`);
     } catch (error) {
         console.log(error);
 
